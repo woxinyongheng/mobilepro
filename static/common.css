@@ -1,0 +1,82 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+  font-family: "dq",Arial; }
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0; }
+
+::-webkit-scrollbar-track {
+  background: transparent; }
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px; }
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: transparent; }
+
+ul, ol, li {
+  list-style: none; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+html, body {
+  width: 100%;
+  height: 100%; }
+
+html, body {
+  -webkit-user-select: none; }
+
+a, img {
+  -webkit-touch-callout: none; }
+
+html, body, button, input, optgroup, select, textarea {
+  -webkit-apperance: none; }
+
+a, button, input, optgroup, select, textarea {
+  -webkit-tap-highlight-color: transparent; }
+
+html {
+  font-size: 100px; }
+
+@media only screen and (min-width: 320px) {
+  html {
+    font-size: 85px !important; } }
+
+@media only screen and (min-width: 320px) {
+  html {
+    font-size: 96px !important; } }
+
+@media only screen and (min-width: 375px) {
+  html {
+    font-size: 100px !important; } }
+
+@media only screen and (min-width: 412px) {
+  html {
+    font-size: 109px !important; } }
+
+@media only screen and (min-width: 414px) {
+  html {
+    font-size: 110px !important; } }
+
+@media only screen and (min-width: 640px) {
+  html {
+    font-size: 170px !important; } }
+
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 200px !important; } }
+
+@media only screen and (min-width: 1024px) {
+  html {
+    font-size: 274px !important; } }
+
+body {
+  font-size: 16px;
+  font-size: 0.16rem; }

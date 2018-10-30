@@ -1,95 +1,39 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <tabbar>
+      <tabbar-item>
+        <!--<img slot="icon" src="../assets/demo/icon_nav_button.png">-->
+        <span slot="label">Wechat</span>
+      </tabbar-item>
+      <tabbar-item show-dot>
+        <!--<img slot="icon" src="../assets/demo/icon_nav_msg.png">-->
+        <span slot="label">Message</span>
+      </tabbar-item>
+      <tabbar-item selected link="/component/demo">
+        <!--<img slot="icon" src="../assets/demo/icon_nav_article.png">-->
+        <span slot="label">Explore</span>
+      </tabbar-item>
+      <tabbar-item badge="2">
+        <!--<img slot="icon" src="../assets/demo/icon_nav_cell.png">-->
+        <span slot="label">News</span>
+      </tabbar-item>
+    </tabbar>
   </div>
 </template>
 
 <script>
+  import { Tabbar, TabbarItem } from 'vux'
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+
+  },
+  components: {
+    Tabbar,
+    TabbarItem
   }
 }
 </script>

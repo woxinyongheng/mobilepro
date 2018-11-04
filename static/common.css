@@ -79,4 +79,34 @@ html {
 
 body {
   font-size: 16px;
-  font-size: 0.16rem; }
+  font-size: 0.16rem;
+  background-color: #f3f6f9;
+}
+
+/*颜色*/
+.miancolor-1{
+  color:#93BCFF ;
+}
+.miancolor-2{
+  color:#FBAC59 ;
+}
+
+
+/*一像素*/
+.common-1px-r{
+  position: relative;
+}
+.common-1px-r::after{
+  content: " ";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+  bottom: 0;
+  border-right: 1px solid #C7C7C7;
+  color: #C7C7C7;
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  -webkit-transform: scaleX(0.5);
+  transform: scaleX(0.5);
+}

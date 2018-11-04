@@ -3,7 +3,7 @@
       <div class="main">
         <router-view></router-view>
       </div>
-      <tabbar>
+      <tabbar class="tab">
         <tabbar-item link="/index" :selected="$route.path == '/index'">
           <img slot="icon" src="../../static/image/home.png">
           <img slot="icon-active" src="../../static/image/home-active.png" alt="">
@@ -36,5 +36,9 @@
 </script>
 
 <style scoped lang="scss">
-
+.tab{
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+}
 </style>

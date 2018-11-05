@@ -1,24 +1,23 @@
 <template>
     <div class="card" @click="toInfoHandle(1)">
         <div class="title">
-            <span class="stabun">{{type==1?'质保':'维保'}}</span>任务编号: <span>HNZ100115004</span>
-            <span class="status" :class="type==1?'error':''">已超时</span>
+            任务编号: <span>HNZ100115004</span>
+            <span class="status" :class="type==1?'error':''">未派工</span>
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>任务名称：</span><span class="right">电梯设备-9号楼8号电梯（月保养）</span>
+                    <span>设备名称：</span><span class="right">电梯设备号电梯</span>
                 </li>
                 <li>
-                    <span>保养任务：</span><span class="right">过滤网保养</span>
+                    <span>设备类型：</span><span class="right">过滤网保养</span>
                 </li>
                 <li>
-                    <span>维保单位：</span><span class="right">某某设备维保公司</span>
+                    <span>所处区域：</span><span class="right">某某设备维保公司</span>
                 </li>
                 <li>
-                    <span>规定时间：</span><span class="right">2018-07-12  12:00 至 2018-08-14
-                    23:59</span>
+                    <span>保修日期：</span><span class="right">2018-07-12</span>
                 </li>
             </ul>
         </div>
@@ -28,7 +27,7 @@
 <script>
     export default {
         props:['type'],
-        name: "Card",
+        name: "serviceCard",
         methods:{
             toInfoHandle(id){
                 this.$emit('toInfoHandle',id)
@@ -50,6 +49,8 @@
             line-height: 0.39rem;
             color: #353535;
             font-weight: 500;
+            margin-left: 0.14rem;
+
             font-size: 0.16rem;
             box-sizing: border-box;
             margin-bottom: 0.06rem;
@@ -89,6 +90,15 @@
             border-right:none;
 
             border-bottom:none;
+        }
+        .title::before{
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 0.14rem;
+            background-color: #38C7C4;
+            left: -0.1rem;
+            top: 0.12rem;
         }
 
         .list{

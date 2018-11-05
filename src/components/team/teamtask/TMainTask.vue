@@ -7,7 +7,6 @@
             <tab-item active-class="active"  @on-item-click="onItemClick">已挂单</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick">已完成</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick">已超时</tab-item>
-
         </tab>
         <div class="content">
             <minecard :type="1" @toInfoHandle="toInfoHandle"></minecard>

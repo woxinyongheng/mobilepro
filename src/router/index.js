@@ -9,14 +9,15 @@ import Index from '@/components/team/Index'
 import  TMainTask from '@/components/team/teamtask/TMainTask'  //班组保养
 import  TMainInfo from '@/components/team/teamtask/TMainInfo'  //班组保养详情
 import  SelectPerson from '@/components/team/teamtask/SelectPerson'  //指派人员
-
-
-
-
+import  TServiceInfo from '@/components/team/teamtask/TServiceInfo'  //班组维修详情
 import  TServiceTask from '@/components/team/teamtask/TServiceTask' //班组维修
 //我的任务
-import  MainTask from '@/components/team/mineTask/MainTask' //我的保养
-import  ServiceTask from '@/components/team/mineTask/ServiceTask'//我的维修
+import  MainTask from '@/components/team/minetask/MainTask' //我的保养
+import  MainInfo from '@/components/team/minetask/MainInfo'  //我的保养详情
+
+import  ServiceTask from '@/components/team/minetask/ServiceTask'//我的维修
+
+
 
 //我的
 import Mine from '@/components/team/Mine'
@@ -83,6 +84,14 @@ export default new Router({
           path:'/SelectPerson/:ids',
           name:'SelectPerson',
           component:SelectPerson
+      },{
+          path:'/TServiceInfo/:id',
+          name:'TServiceInfo',
+          component:TServiceInfo
+      },{
+          path:'/MainInfo/:id',
+          name:'MainInfo',
+          component:MainInfo
       }
 
   ]

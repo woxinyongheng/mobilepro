@@ -1,25 +1,25 @@
 <template>
     <div class="card" @click="toGrade">
         <div class="title">
-            设备编号: <span>HNZ100115004</span>
+            设备编号: <span>{{item.assetsCode}}</span>
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>设备名称：</span>9号楼8号电梯
+                    <span>设备名称：</span>{{item.assetsName}}
                 </li>
                 <li>
-                    <span>设备类型：</span>9号楼8号电梯
+                    <span>设备类型：</span>{{item.classifyName}}
                 </li>
                 <li>
-                    <span>所处品牌：</span>9号楼8号电梯
+                    <span>设备品牌：</span>{{item.brandName}}
                 </li>
                 <li>
-                    <span>所处区域：</span>9号楼8号电梯
+                    <span>所处区域：</span>{{item.areaName}}
                 </li>
                 <li>
-                    <span>存放位置：</span>9号楼8号电梯
+                    <span>存放位置：</span>{{item.storageLocation}}
                 </li>
             </ul>
         </div>
@@ -29,9 +29,11 @@
 <script>
     export default {
         name: "Card",
+        props:['item'],
         methods:{
             toGrade(){
-                this.$emit('toGrade',1)
+                let vm =this
+                this.$emit('toGrade',vm.item.equipmentId)
             }
         }
     }

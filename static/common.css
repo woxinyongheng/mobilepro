@@ -110,3 +110,10 @@ body {
   -webkit-transform: scaleX(0.5);
   transform: scaleX(0.5);
 }
+input{
+  color: #999999 !important;
+}
+textarea{
+  color: #999999 !important;
+
+}

@@ -1,33 +1,33 @@
 <template>
-    <div class="maininfo">
+    <div class="repairinfo">
         <x-header  style="background-color:#2CC7C5;">任务详情</x-header>
         <div class="box">
             <div class="card">
                 <p class="title">
                     设备信息
-                    <span class="stabun">{{dataInfo.equipmentState==0?'正常':(dataInfo.equipmentState==1?'延期':'报废')}}</span>
-                    <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
+                    <span class="stabun">报废</span>
+                    <img src="../../../static/image/down.png" alt="" @click="show1=!show1">
                 </p>
                 <div v-show="show1">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>设备名称:</span><span>{{dataInfo.assetsName}}</span>
+                            <span>设备编号:</span><span>{{seviceData.assetsCode}}</span>
                         </li>
                         <li>
-                            <span>设备编号:</span><span>{{dataInfo.assetsCode}}</span>
+                            <span>设备名称:</span><span>{{seviceData.assetsName}}</span>
                         </li>
                         <li>
-                            <span>设备类型:</span><span>{{dataInfo.classifyName}}</span>
+                            <span>设备类型:</span><span>{{seviceData.classifyName}}</span>
                         </li>
                         <li>
-                            <span>设备品牌:</span><span>{{dataInfo.brandName}}</span>
+                            <span>设备品牌:</span><span>{{seviceData.brandName}}</span>
                         </li>
                         <li>
-                            <span>所处区域:</span><span>{{dataInfo.areaName}}</span>
+                            <span>所处区域:</span><span>{{seviceData.areaName}}</span>
                         </li>
                         <li>
-                            <span>存放位置:</span><span>{{dataInfo.storageLocation}}</span>
+                            <span>存放位置:</span><span>{{seviceData.storageLocation}}</span>
                         </li>
                     </ul>
                 </div>
@@ -36,41 +36,40 @@
 
             <div class="card orther">
                 <p class="title">
-                    任务信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show2=!show2">
+                    报修信息
+                    <img src="../../../static/image/down.png" alt="" @click="show2=!show2">
                 </p>
                 <div v-show="show2">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>任务编号:</span><span>{{dataInfo.maintainCode}}</span>
+                            <span>任务编号:</span><span>{{seviceData.repairCode}}</span>
                         </li>
                         <li>
-                            <span>保养类型:</span><span>{{dataInfo.maintainType==0?'质保':'维保'}}</span>
+                            <span>报修人:</span><span>{{infoData.reportPersonName}}</span>
                         </li>
                         <li>
-                            <span>保养周期:</span>
-                            <span v-if="dataInfo.cycleType==0">周</span>
-                            <span v-if="dataInfo.cycleType==1">半月</span>
-                            <span v-if="dataInfo.cycleType==2">月</span>
-                            <span v-if="dataInfo.cycleType==3">季度</span>
-                            <span v-if="dataInfo.cycleType==4">半年</span>
-                            <span v-if="dataInfo.cycleType==5">年</span>
+                            <span>联系电话:</span><span>{{infoData.reportPersonPhone}}</span>
                         </li>
                         <li>
-                            <span>保养项目:</span><span>{{dataInfo.maintainItem}}</span>
+                            <span>报修时间:</span><span>{{infoData.reportTime}}</span>
                         </li>
                         <li>
-                            <span>维保单位:</span><span>{{dataInfo.maintenanceCompany}}</span>
+                            <span>报修说明:</span>
+                            <p class="text">{{infoData.repairExplain}}</p>
+                            <p class="voice">
+                                <!--<span>-->
+                                    <audio v-if="infoData.repairContentAttachmentUrl" class="voiceitem" :src="infoData.repairContentAttachmentUrl" controls="controls"></audio>
+                                    <!--<img src="../../../static/image/palyvoice.png" alt="">44"-->
+                                <!--</span>-->
+                                <!--播放语音-->
+                            </p>
                         </li>
                         <li>
-                            <span>联系人:</span><span>{{dataInfo.maintain_person_name}}</span>
-                        </li>
-                        <li>
-                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
-                        </li>
-                        <li>
-                            <span>规定时间:</span><span>{{dataInfo.maintain_time}}</span>
+                            <span>相关附件:</span>
+                            <p class="img" v-for="i in infoData.repairAttachmentUrl">
+                                <img :src="i" alt="">
+                            </p>
                         </li>
                     </ul>
                 </div>
@@ -78,22 +77,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="state!=0">
                 <p class="title">
                     派工信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
+                    <img src="../../../static/image/down.png" alt="" @click="show3=!show3">
                 </p>
                 <div v-show="show3">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>派工时间:</span><span>{{dataInfo.assign_time}}</span>
+                            <span>派工时间:</span><span>{{infoData.assignTime}}</span>
                         </li>
                         <li>
-                            <span>派工人:</span><span>{{dataInfo.assign_person_name}}</span>
+                            <span>派工人:</span><span>{{infoData.assignPersonName}}</span>
                         </li>
                         <li>
-                            <span>执行人:</span><span>{{dataInfo.implement_person_name}}</span>
+                            <span>执行人:</span><span>{{infoData.implementPersonName}}</span>
                         </li>
                     </ul>
                 </div>
@@ -101,22 +100,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther"  v-if="state==1||state==3">
                 <p class="title">
                     挂单信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
+                    <img src="../../../static/image/down.png" alt="" @click="show4=!show4">
                 </p>
                 <div v-show="show4">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>挂单时间:</span><span>{{dataInfo.payment_time}}</span>
+                            <span>挂单时间:</span><span>{{infoData.paymentTime}}</span>
                         </li>
                         <li>
-                            <span>挂单原因:</span><span>{{dataInfo.payment_cause}}</span>
+                            <span>挂单原因:</span><span>{{infoData.paymentCause}}</span>
                         </li>
                         <li>
-                            <span>其他说明:</span><span>{{dataInfo.otherExplain}}</span>
+                            <span>其他说明:</span><span>{{infoData.otherExplain}}</span>
                         </li>
                     </ul>
                 </div>
@@ -124,74 +123,55 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="state==3">
                 <p class="title">
-                    完工信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
+                    维修信息
+                    <img src="../../../static/image/down.png" alt="" @click="show5=!show5">
                 </p>
                 <div v-show="show5">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>完工时间:</span><span>{{dataInfo.maintain_time}}</span>
+                            <span>维修日期:</span><span>{{infoData.repairTime}}</span>
                         </li>
                         <li>
-                            <span>保养人:</span><span>{{dataInfo.maintain_person_name}}</span>
+                            <span>维修人:</span><span>{{infoData.repairPersonName}}</span>
                         </li>
-                        <li class="liborder">
-                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
+                        <li>
+                            <span>联系电话:</span><span>{{infoData.repairPersonPhone}}</span>
                         </li>
-                        <li class="liborder">
-                            <span>保养说明:</span>
-                            <p class="text">{{dataInfo.maintain_explain}}</p>
-                            <p class="voice">
-                                <audio v-if="dataInfo.repair_content_attachment_url" class="voiceitem" :src="dataInfo.repair_content_attachment_url" controls="controls"></audio>
+                        <li>
+                            <span>使用配件:</span>
+                            <p class="table"><span></span><span></span><span></span></p>
+                            <!--<p class="table"><span>过滤管</span><span>✖2</span><span>435元</span></p>-->
 
+                        </li>
+                        <li>
+                            <span>其他支出:</span><span>{{infoData.servicePay}}</span>
+                        </li>
+                        <li>
+                            <span>维修总支出:</span><span>{{infoData.repairPay}}</span>
+                        </li>
+                        <li class="liborder">
+                            <span>维修说明:</span>
+                            <p class="text">{{infoData.repairFinishExplain}}</p>
+                            <p class="voice">
+                                <!--<span>-->
+                                <audio v-if="infoData.finishContentAttachmentUrl" class="voiceitem" :src="infoData.finishContentAttachmentUrl" controls="controls"></audio>
+                                <!--<img src="../../../static/image/palyvoice.png" alt="">44"-->
+                                <!--</span>-->
+                                <!--播放语音-->
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
-                            <p class="img" v-if="dataInfo.repair_attachment_url">
-                                <img v-if="item in dataInfo.repair_attachment_url" :src="item" alt="">
+                            <p class="img" v-for="i in infoData.finishAttachmentUrl">
+                                <img :src="i" alt="">
                             </p>
                         </li>
                     </ul>
                 </div>
 
-            </div>
-
-
-            <div class="card orther">
-                <p class="title">
-                    保养项目作业书
-                    <img src="../../../../static/image/down.png" alt="" @click="show6=!show6">
-                </p>
-                <div v-show="show6">
-                    <hr class="hr">
-                    <div class="plan" v-for="item in workList">
-                        <p class="plantitle">
-                            <span>{{item.content}}</span>
-                            <span class="right">
-                                <img src="../../../../static/image/select.png" alt="">完成
-                            </span>
-                        </p>
-                        <p class="info">{{item.content}}</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="buttonbox" v-if="dataInfo.state==0 || dataInfo.state==1 ">
-                <p v-if="dataInfo.state==0 " @click="paymentHandle">挂单</p>
-                <p v-if="dataInfo.state==1" @click="$router.push('/MainTask')">取消</p>
-                <p @click="selectPerson" >保养</p>
-            </div>
-            <div>
-                <confirm v-model="ranlingshow"
-                         title="提示"
-                         @on-confirm="onConfirm">
-                    <p style="text-align:center;">确定认领此任务吗？</p>
-                </confirm>
             </div>
 
         </div>
@@ -199,72 +179,53 @@
 </template>
 
 <script>
-    import { XHeader,Confirm,TransferDomDirective as TransferDom} from 'vux'
+    import { XHeader} from 'vux'
 
     export default {
-        name: "MainInfo",
+        name: "RepairInfo",
         data:function(){
-            return{
-                ranlingshow:false,
-                dataInfo:'',
-                workList:[],
-                show1:true,
-                show2:true,
-                show3:true,
-                show4:true,
-                show5:true,
-                show6:true
-            }
+          return{
+              infoData:'',
+              seviceData:'',
+              state:0,
+              show1:true,
+              show2:true,
+              show3:true,
+              show4:true,
+              show5:true,
+
+          }
         },
         mounted(){
-          this.requestInfo()
-            this.requestList()
+            let vm =this
+            vm.seviceData = JSON.parse(sessionStorage.getItem(vm.$route.params.equipid))
+            vm.state = vm.$route.params.state
+            this.requestInfo()
         },
         methods:{
-
-            //挂单
-            paymentHandle(){
-                let vm =this
-                vm.$router.push('/PayMent/baoyang/'+vm.$route.params.id)
-            },
-            //认领
-            onConfirm(){
-                debugger
-            },
-            //    指派
-            selectPerson(){
-                vm.$router.push('/Maintain/'+vm.$route.params.id)
-            },
-            requestInfo(){
-                let vm =this
-                vm.$http.post('AppmaintainController/MaintainView',{
-                    id:vm.$route.params.id
-                }).then(res=>{
-                    if(res.code==200){
-                        vm.dataInfo = res.data.view
-                    }
-                })
-            },
-            requestList(){
-                let vm =this
-                vm.$http.post('AppmaintainController/findMaintainWorkList',{
-                    id:vm.$route.params.id
-                }).then(res=>{
-                    if(res.code==200){
-                        vm.workList = res.data.work
-                    }
-                })
-            },
+          requestInfo(){
+              let vm=this
+              vm.$http.post('equipmentListController/getRepairDetailById',{
+                  id:vm.$route.params.id
+              }).then(res=>{
+                  if(res.code==200){
+                      vm.infoData = res.data.repair
+                  }
+              })
+          }
         },
-
+        destroyed(){
+            let vm =this
+          sessionStorage.removeItem(vm.seviceData.equipmentId)
+        },
         components:{
-            XHeader,Confirm
+            XHeader
         },
     }
 </script>
 
 <style scoped lang="scss">
-    .maininfo{
+    .repairinfo{
         height:100%;
 
         .box{
@@ -343,17 +304,18 @@
                             vertical-align: top;
                         }
                         span:nth-of-type(1){
-                            width:0.8rem;
+                            width:0.86rem;
                         }
                         span:nth-of-type(2){
-                            width: calc(100% - 0.8rem);
+                            width: calc(100% - 0.86rem);
                             padding-top: 0.1rem;
                             line-height: 0.2rem;
                         }
                         .text{
                             line-height: 0.2rem;
                         }
-                        .voice {
+                        .voice{
+                            width: 88%;
                             height: 0.4rem;
                             margin: 0 auto;
                             color: #ffffff;
@@ -362,8 +324,33 @@
                             margin-top: 0.3rem;
                             border-radius: 4px;
                             margin-bottom: 0.1rem;
-                            .voiceitem {
+                            .voiceitem{
                                 background-color: #38C7C4;
+
+                            }
+                            /*span{*/
+                                /*position: absolute;*/
+                                /*left: 0.1rem;*/
+                            /*}*/
+                            /*.voiceitem{*/
+                                /*width: 0.2rem;*/
+                                /*vertical-align: middle;*/
+                            /*}*/
+                        }
+                        .img{
+                            img{
+                                width: 1rem;
+                                height: 0.8rem;
+                            }
+                        }
+                        .table{
+
+                            display: flex;
+                            justify-content: space-around;
+                            background:rgba(244,244,244,1);
+                            border-radius:4px;
+                            span{
+                                width:20%
 
                             }
                         }
@@ -424,4 +411,5 @@
 
         }
     }
+
 </style>

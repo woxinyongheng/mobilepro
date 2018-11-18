@@ -1,24 +1,28 @@
 <template>
-    <div class="card" @click="toInfoHandle(1)">
+    <div class="card" @click="toInfoHandle">
         <div class="title">
-            <span class="stabun">{{type==1?'质保':'维保'}}</span>任务编号: <span>HNZ100115004</span>
-            <span class="status" :class="type==1?'error':''">未派工</span>
+            <span class="stabun">{{item.maintainType==1?'维保':'质保'}}</span>任务编号: <span>{{item.maintainCode}}</span>
+            <span class="status" v-if="type==0" :class="type==0?'error':''">未派工</span>
+            <span class="status" v-if="type==2" >已派工</span>
+            <span class="status" v-if="type==1">已挂单</span>
+            <span class="status" v-if="type==3">已完成</span>
+            <span class="status" v-if="type=='over'">已超时</span>
+
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>任务名称：</span><span class="right">电梯设备-9号楼8号电梯（月保养）</span>
+                    <span>任务名称：</span><span class="right">{{item.maintainItem}}</span>
                 </li>
                 <li>
-                    <span>保养任务：</span><span class="right">过滤网保养</span>
+                    <span>保养任务：</span><span class="right">{{item.maintainItem}}</span>
                 </li>
                 <li>
-                    <span>维保单位：</span><span class="right">某某设备维保公司</span>
+                    <span>维保单位：</span><span class="right">{{item.company}}</span>
                 </li>
                 <li>
-                    <span>规定时间：</span><span class="right">2018-07-12  12:00 至 2018-08-14
-                    23:59</span>
+                    <span>规定时间：</span><span class="right">{{item.requirementPlanTime}}</span>
                 </li>
             </ul>
         </div>
@@ -27,11 +31,12 @@
 
 <script>
     export default {
-        props:['type'],
+        props:['type','item'],
         name: "Card",
         methods:{
-            toInfoHandle(id){
-                this.$emit('toInfoHandle',id)
+            toInfoHandle(){
+                let vm =this
+                this.$emit('toInfoHandle',vm.item)
             }
         }
     }

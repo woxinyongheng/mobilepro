@@ -3,9 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+
     <title>mobile</title>
     <link rel="stylesheet" href="./static/common.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
   </head>
+  <script>
+      let __PATH = {
+          FULLPATH:'http://218.247.12.45:8099/',
+          BASEPATH:'http://218.247.12.42:8196/',
+          OTHPATH:'http://124.207.234.79:8980/assetAccount/',
+          WECHART:'https://ssodev.logimis.com/'
+      }
+      localStorage.setItem('isLogin','1')
+      // var str1 = '{"companyCode":"zxyshj-wwgs01","menuList":[{"parentName":"","menuHref":"","icon":"","menuId":"1063409981491462144","menuName":"test","parentId":"0"}],"unitName":"北京市测试医管局","companyName":"中科测试公司","officeCode":"","hospitalName":"在线演示环境","type":"","hospitalCode":"zxyshj","phone":"18800000004","unitCode":"bjscsygj","roleCode":"worker","name":"马六","roleName":"班组工人","id":"cd99bb1fc73f4bf7bbb0208e7be2e6d6"}'
+      var str1 = '{"companyCode":"","menuList":[{"parentName":"","menuHref":"","icon":"/static/img/myWork.png","menuId":"1057457334841761792","menuName":"我的事项","parentId":"0"},{"parentName":"我的事项","menuHref":"HSMyWarranty","icon":"icon-wrench","menuId":"1057457692360040448","menuName":"我的报修","parentId":"1057457334841761792"},{"parentName":"","menuHref":"","icon":"/static/img/assetManage.png","menuId":"1057457848102936576","menuName":"设备管理","parentId":"0"},{"parentName":"设备管理","menuHref":"HSMtList","icon":"icon-list","menuId":"1057458146817073152","menuName":"设备列表","parentId":"1057457848102936576"},{"parentName":"设备管理","menuHref":"HSEtList","icon":"icon-list","menuId":"1057458378162298880","menuName":"延期记录","parentId":"1057457848102936576"},{"parentName":"设备管理","menuHref":"HSSpList","icon":"icon-list","menuId":"1057458503072866304","menuName":"报废记录","parentId":"1057457848102936576"},{"parentName":"设备管理","menuHref":"HSTaList","icon":"icon-settings","menuId":"1057458687483830272","menuName":"管理任务分配","parentId":"1057457848102936576"},{"parentName":"","menuHref":"","icon":"/static/img/maintenanceManagement.png","menuId":"1057458847785934848","menuName":"维保管理","parentId":"0"},{"parentName":"维保管理","menuHref":"HSPlanTask","icon":"icon-list","menuId":"1057458913468735488","menuName":"计划任务","parentId":"1057458847785934848"},{"parentName":"维保管理","menuHref":"HSWorkOrder","icon":"icon-list","menuId":"1057458961837449216","menuName":"维修工单","parentId":"1057458847785934848"},{"parentName":"维保管理","menuHref":"HSMtTask","icon":"icon-list","menuId":"1057459011586088960","menuName":"保养任务","parentId":"1057458847785934848"},{"parentName":"设备管理","menuHref":"HSMtmanage","icon":"icon-people","menuId":"1057826547407872000","menuName":"设备管理员","parentId":"1057457848102936576"},{"parentName":"设备管理","menuHref":"HSGdManage","icon":"icon-support","menuId":"1057826962224537600","menuName":"维保公司管理","parentId":"1057457848102936576"},{"parentName":"","menuHref":"","icon":"/static/img/statisticAnalysis.png","menuId":"1057827723859812352","menuName":"统计分析","parentId":"0"},{"parentName":"统计分析","menuHref":"HSSaList","icon":"/static/img/statisticAnalysis.png","menuId":"1057827821863919616","menuName":"统计分析","parentId":"1057827723859812352"},{"parentName":"设备管理","menuHref":"HSDlList","icon":"icon-list","menuId":"1057828484693975040","menuName":"质保到期处理记录","parentId":"1057457848102936576"},{"parentName":"","menuHref":"","icon":"/static/img/我的事项.png","menuId":"1061863433812451328","menuName":"test","parentId":"0"}],"unitName":"北京市测试医管局","companyName":"","officeCode":"4ed4050d5b6f4327a447161987a1be5f","hospitalName":"在线演示环境","type":"","hospitalCode":"zxyshj","phone":"18800196061","unitCode":"bjscsygj","roleCode":"ybadmin","name":"赵子豪","roleName":"运保主管","id":"1561c69b112f4b28b36e620ebab83233"}'
+      // var str1 = '{"companyCode":"zxyshj-wwgs01","menuList":[{"parentName":"","menuHref":"","icon":"","menuId":"1063409981491462144","menuName":"test","parentId":"0"}],"unitName":"北京市测试医管局","companyName":"中科测试公司","officeCode":"","hospitalName":"在线演示环境","type":"","hospitalCode":"zxyshj","phone":"18800000006","unitCode":"bjscsygj","roleCode":"teamleader","name":"郑八","roleName":"班组组长","id":"eb7d4ec5fa514dabb27230bc3be4a107"}'
+      localStorage.setItem('loginInfo',str1)
+  </script>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->

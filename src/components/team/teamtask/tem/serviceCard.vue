@@ -1,23 +1,27 @@
 <template>
-    <div class="card" @click="toInfoHandle(1)">
+    <div class="card" @click="toInfoHandle">
         <div class="title">
-            任务编号: <span>HNZ100115004</span>
-            <span class="status" :class="type==1?'error':''">未派工</span>
+            任务编号: <span>{{item.repairCode}}</span>
+            <span v-if="item.state==0" class="status" :class="type==1?'error':''">未派工</span>
+            <span v-if="item.state==1" class="status" :class="type==1?'error':''">已派工</span>
+            <span v-if="item.state==2" class="status" :class="type==1?'error':''">已挂单</span>
+            <span v-if="item.state==3" class="status" :class="type==1?'error':''">已完成</span>
+
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>设备名称：</span><span class="right">电梯设备号电梯</span>
+                    <span>设备名称：</span><span class="right">{{item.assetsName}}</span>
                 </li>
                 <li>
-                    <span>设备类型：</span><span class="right">过滤网保养</span>
+                    <span>设备类型：</span><span class="right">{{item.classifyName}}</span>
                 </li>
                 <li>
-                    <span>所处区域：</span><span class="right">某某设备维保公司</span>
+                    <span>所处区域：</span><span class="right">{{item.areaName}}</span>
                 </li>
                 <li>
-                    <span>保修日期：</span><span class="right">2018-07-12</span>
+                    <span>报修日期：</span><span class="right">{{item.reportTime}}</span>
                 </li>
             </ul>
         </div>
@@ -26,11 +30,12 @@
 
 <script>
     export default {
-        props:['type'],
+        props:['type','item'],
         name: "serviceCard",
         methods:{
-            toInfoHandle(id){
-                this.$emit('toInfoHandle',id)
+            toInfoHandle(){
+                let vm =this
+                this.$emit('toInfoHandle',vm.item)
             }
         }
     }

@@ -5,29 +5,29 @@
             <div class="card">
                 <p class="title">
                     设备信息
-                    <span class="stabun">报废</span>
-                    <img src="../../../../static/image/down.png" alt="">
+                    <span class="stabun">{{dataInfo.equipmentState==0?'正常':(dataInfo.equipmentState==1?'延期':'报废')}}</span>
+                    <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
                 </p>
-                <div>
+                <div v-show="show1">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>设备名称:</span><span>********</span>
+                            <span>设备名称:</span><span>{{dataInfo.assetsName}}</span>
                         </li>
                         <li>
-                            <span>设备名称:</span><span>9号楼8号电梯</span>
+                            <span>设备编号:</span><span>{{dataInfo.assetsCode}}</span>
                         </li>
                         <li>
-                            <span>设备类型:</span><span>#353535</span>
+                            <span>设备类型:</span><span>{{dataInfo.classifyName}}</span>
                         </li>
                         <li>
-                            <span>设备品牌:</span><span>某某品牌</span>
+                            <span>设备品牌:</span><span>{{dataInfo.brandName}}</span>
                         </li>
                         <li>
-                            <span>所处区域:</span><span>9号楼8层425室</span>
+                            <span>所处区域:</span><span>{{dataInfo.areaName}}</span>
                         </li>
                         <li>
-                            <span>存放位置:</span><span>9号楼8层425室</span>
+                            <span>存放位置:</span><span>{{dataInfo.storageLocation}}</span>
                         </li>
                     </ul>
                 </div>
@@ -37,35 +37,40 @@
             <div class="card orther">
                 <p class="title">
                     任务信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show2=!show2">
                 </p>
-                <div>
+                <div v-show="show2">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>设备编号:</span><span>********</span>
+                            <span>任务编号:</span><span>{{dataInfo.maintainCode}}</span>
                         </li>
                         <li>
-                            <span>保养类型:</span><span>9号楼8号电梯</span>
+                            <span>保养类型:</span><span>{{dataInfo.maintainType==0?'质保':'维保'}}</span>
                         </li>
                         <li>
-                            <span>保养周期:</span><span>#353535</span>
+                            <span>保养周期:</span>
+                            <span v-if="dataInfo.cycleType==0">周</span>
+                            <span v-if="dataInfo.cycleType==1">半月</span>
+                            <span v-if="dataInfo.cycleType==2">月</span>
+                            <span v-if="dataInfo.cycleType==3">季度</span>
+                            <span v-if="dataInfo.cycleType==4">半年</span>
+                            <span v-if="dataInfo.cycleType==5">年</span>
                         </li>
                         <li>
-                            <span>保养项目:</span><span>某某品牌</span>
+                            <span>保养项目:</span><span>{{dataInfo.maintainItem}}</span>
                         </li>
                         <li>
-                            <span>维保单位:</span><span>9号楼8层425室</span>
+                            <span>维保单位:</span><span>{{dataInfo.maintenanceCompany}}</span>
                         </li>
                         <li>
-                            <span>联系人:</span><span>9号楼8层425室</span>
+                            <span>联系人:</span><span>{{dataInfo.maintain_person_name}}</span>
                         </li>
                         <li>
-                            <span>联系电话:</span><span>9号楼8层425室</span>
+                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
                         </li>
                         <li>
-                            <span>规定时间:</span><span>2018/07/12  12:00 至 2018-08-14
-23:59</span>
+                            <span>规定时间:</span><span>{{dataInfo.maintain_time}}</span>
                         </li>
                     </ul>
                 </div>
@@ -73,22 +78,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.state!=0">
                 <p class="title">
                     派工信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
                 </p>
-                <div>
+                <div v-show="show3">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>派工时间:</span><span>2018-07-15  15:23</span>
+                            <span>派工时间:</span><span>{{dataInfo.assign_time}}</span>
                         </li>
                         <li>
-                            <span>派工人:</span><span>9号楼8号电梯</span>
+                            <span>派工人:</span><span>{{dataInfo.assign_person_name}}</span>
                         </li>
                         <li>
-                            <span>执行人:</span><span>#353535</span>
+                            <span>执行人:</span><span>{{dataInfo.implement_person_name}}</span>
                         </li>
                     </ul>
                 </div>
@@ -96,23 +101,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.state==1 || dataInfo.state==3">>
                 <p class="title">
                     挂单信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
                 </p>
-                <div>
+                <div v-show="show4">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>挂单时间:</span><span>2018-07-15  15:23</span>
+                            <span>挂单时间:</span><span>{{dataInfo.payment_time}}</span>
                         </li>
                         <li>
-                            <span>挂单原因:</span><span>9号楼8号电梯</span>
+                            <span>挂单原因:</span><span>{{dataInfo.payment_cause}}</span>
                         </li>
                         <li>
-                            <span>其他说明:</span><span>说明说明说明说明说明说明说明说明
-说明说明说明说明说明说明</span>
+                            <span>其他说明:</span><span>{{dataInfo.otherExplain}}</span>
                         </li>
                     </ul>
                 </div>
@@ -120,41 +124,35 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.state==3">
                 <p class="title">
                     完工信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
                 </p>
-                <div>
+                <div v-show="show5">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>完工时间:</span><span>2018-07-15  15:23</span>
+                            <span>完工时间:</span><span>{{dataInfo.maintain_time}}</span>
                         </li>
                         <li>
-                            <span>保养人:</span><span>9号楼8号电梯</span>
+                            <span>保养人:</span><span>{{dataInfo.maintain_person_name}}</span>
                         </li>
                         <li class="liborder">
-                            <span>联系电话:</span><span>说明说明</span>
+                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
                         </li>
                         <li class="liborder">
-                            <span>维修说明:</span>
-                            <p class="text">故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明障说明故障说明故障说明故障说明故障说明故障说</p>
+                            <span>保养说明:</span>
+                            <p class="text">{{dataInfo.maintain_explain}}</p>
                             <p class="voice">
-                                <span>
-                                    <img src="../../../../static/image/palyvoice.png" alt="">44"
-                                </span>
-                                播放语音
+                                <audio v-if="dataInfo.repair_content_attachment_url" class="voiceitem" :src="dataInfo.repair_content_attachment_url" controls="controls"></audio>
+
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
-                            <p class="img">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-
-
+                            <p class="img" v-if="dataInfo.repair_attachment_url">
+                                <img v-if="item in dataInfo.repair_attachment_url" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -163,37 +161,28 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.state==3">
                 <p class="title">
                     保养项目作业书
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show6=!show6">
                 </p>
-                <div>
+                <div v-show="show6">
                     <hr class="hr">
-                    <div class="plan">
+                    <div class="plan" v-for="item in workList">
                         <p class="plantitle">
-                            <span>1.某某保养</span>
+                            <span>{{item.content}}</span>
                             <span class="right">
                                 <img src="../../../../static/image/select.png" alt="">完成
                             </span>
                         </p>
-                        <p class="info">进行了某某保养</p>
-                    </div>
-                    <div class="plan">
-                        <p class="plantitle">
-                            <span>2.某某保养</span>
-                            <span class="right">
-                                 <img src="../../../../static/image/alert.png" alt="">未完成
-
-                            </span>
-                        </p>
-                        <p class="info">进行了某某保养</p>
+                        <p class="info">{{item.content}}</p>
                     </div>
                 </div>
 
             </div>
 
-            <div class="buttonbox">
+            <div class="buttonbox" v-if="dataInfo.state==0">
+                <!--/* v-if="dataInfo.state==0"*/-->
                 <p @click="ranlingshow=true">认领</p>
                 <p @click="selectPerson">指派</p>
             </div>
@@ -216,18 +205,72 @@
         name: "TMainInfo",
         data:function(){
           return{
-              ranlingshow:false
+              ranlingshow:false,
+              deviceData:'',
+              dataInfo:'',
+              workList:[],
+              show1:true,
+              show2:true,
+              show3:true,
+              show4:true,
+              show5:true,
+              show6:true
           }
         },
+        mounted(){
+            let vm =this
+            this.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
+            this.requestInfo()
+            this.requestList()
+        },
         methods:{
+            requestInfo(){
+                let vm =this
+                vm.$http.post('AppmaintainController/MaintainView',{
+                    id:vm.$route.params.id
+                }).then(res=>{
+                    if(res.code==200){
+                        vm.dataInfo = res.data.view
+                    }
+                })
+            },
+            requestList(){
+              let vm =this
+              vm.$http.post('AppmaintainController/findMaintainWorkList',{
+                  id:vm.$route.params.id
+              }).then(res=>{
+                  if(res.code==200){
+                      vm.workList = res.data.work
+                  }
+              })
+            },
             //认领
             onConfirm(){
-                debugger
+                let vm =this
+                vm.$http.post('AppmaintainController/claimOrAssignMaintain',{
+                    type:0,
+                    id:vm.$route.params.id,
+                    implementPersonCode:JSON.parse(localStorage.getItem('loginInfo')).name,
+                    implementPersonName:JSON.parse(localStorage.getItem('loginInfo')).id
+                }).then(res=>{
+                    if(res.code==200){
+                        vm.$vux.toast.show({
+                            text:'认领成功',
+                            time:2000
+                        })
+                        vm.$router.push('/TMainTask')
+                    }
+                })
             },
         //    指派
             selectPerson(){
-                this.$router.push('/selectPerson/1')
+                let vm =this
+                this.$router.push('/selectPerson/baoyang/'+vm.$route.params.id)
             }
+        },
+        destroyed(){
+            let vm =this
+            sessionStorage.removeItem(vm.deviceInfo.id)
         },
 
         components:{
@@ -327,23 +370,17 @@
                         line-height: 0.2rem;
                     }
                     .voice{
-                        width: 88%;
                         height: 0.4rem;
                         margin: 0 auto;
-                        background-color: #38C7C4;
                         color: #ffffff;
                         position: relative;
                         text-align: center;
                         margin-top: 0.3rem;
                         border-radius: 4px;
                         margin-bottom: 0.1rem;
-                        span{
-                            position: absolute;
-                            left: 0.1rem;
-                        }
-                        img{
-                            width: 0.2rem;
-                            vertical-align: middle;
+                        .voiceitem{
+                            background-color: #38C7C4;
+
                         }
                     }
                     .img{

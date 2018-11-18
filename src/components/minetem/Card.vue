@@ -1,23 +1,27 @@
 <template>
-    <div class="card">
+    <div class="card" @click="routerToinfo">
         <div class="title">
-            任务编号: <span>HNZ100115004</span>
-            <span class="status">未派工</span>
+            任务编号: <span>{{item.repairCode}}</span>
+            <span class="status" v-if="item.state==0">未派工</span>
+            <span class="status" v-if="item.state==1">已挂单</span>
+            <span class="status" v-if="item.state==2">已派工</span>
+            <span class="status" v-if="item.state==3">已完成</span>
+
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>设备名称：</span>9号楼8号电梯
+                    <span>设备名称：</span>{{item.assetsName}}
                 </li>
                 <li>
-                    <span>设备类型：</span>9号楼8号电梯
+                    <span>设备类型：</span>{{item.classifyName}}
                 </li>
                 <li>
-                    <span>所处区域：</span>9号楼8号电梯
+                    <span>所处区域：</span>{{item.areaName}}
                 </li>
                 <li>
-                    <span>报修日期：</span>9号楼8号电梯
+                    <span>报修日期：</span>{{item.reportTime}}
                 </li>
             </ul>
         </div>
@@ -26,7 +30,13 @@
 
 <script>
     export default {
-        name: "Card"
+        props:['item'],
+        name: "Card",
+        methods:{
+            routerToinfo(){
+                this.$emit('routerToinfo',this.item)
+            }
+        }
     }
 </script>
 

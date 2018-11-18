@@ -2,14 +2,17 @@
     <div class="maintask">
         <x-header  style="background-color:#2CC7C5;">保养任务</x-header>
         <tab bar-active-color="#38C7C4">
-            <tab-item active-class="active" selected @on-item-click="onItemClick">未开始</tab-item>
-            <tab-item active-class="active"  @on-item-click="onItemClick">已挂单</tab-item>
-            <tab-item active-class="active" @on-item-click="onItemClick">已完成</tab-item>
-            <tab-item active-class="active" @on-item-click="onItemClick">已超时</tab-item>
+            <tab-item active-class="active" selected @on-item-click="onItemClick('0')">未开始</tab-item>
+            <tab-item active-class="active"  @on-item-click="onItemClick('1')">已挂单</tab-item>
+            <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
+            <tab-item active-class="active" @on-item-click="onItemClick('over')">已超时</tab-item>
         </tab>
-        <div class="content">
-            <minecard :type="1" @toInfoHandle="toInfoHandle"></minecard>
-            <minecard :type="2"></minecard>
+        <div class="content" @scroll="scrollAjax">
+            <div class="scrollbox">
+                <minecard v-for="item in listData" :item="item" :type="type" @toInfoHandle="toInfoHandle"></minecard>
+
+            </div>
+            <!--<minecard :type="2"></minecard>-->
         </div>
     </div>
 </template>
@@ -20,13 +23,69 @@
 
     export default {
         name: "MainTask",
-        methods:{
-            onItemClick(){
+        data:function(){
+          return{
+              currentPage:1,
+              pageSize:10,
+              total:0,
+              state:'0',
+              overTime:'0',
+              listData:[],
+              scroll:false,
+              type:'0'
 
+          }
+        },
+        mounted(){
+          this.requestList()
+        },
+        methods:{
+            onItemClick(str){
+                if(str=='over'){
+                    this.overTime='1'
+                }else{
+                    this.overTime='0'
+                    this.state = str
+                }
+                this.type=str
+                this.requestList()
             },
-            toInfoHandle(id){
-                this.$router.push('/MainInfo/'+id)
-            }
+            requestList(str){
+              let vm =this
+              vm.$http.post('AppmaintainController/myMaintainList',{
+                  currentPage:vm.currentPage,
+                  pageSize:vm.pageSize,
+                  state:vm.state,
+                  overTime:vm.overTime
+              }).then(res=>{
+                  if(res.code==200){
+                      if(str){
+                          vm.listData = vm.listData.concat(res.data.data)
+                      }else{
+                          vm.listData = res.data.data
+                      }
+                      vm.scroll =false
+                      vm.total = res.data.count
+                  }
+              })
+            },
+            toInfoHandle(item){
+                this.$router.push('/MainInfo/'+item.id)
+            },
+            //    滚动处理
+            scrollAjax(e) {
+                if (this.scroll) return;
+                var nowScrollTop = document.querySelector(".content").scrollTop;
+                var _boxHeight = document.querySelector(".content").clientHeight;
+                var _height = document.querySelector(".scrollbox").clientHeight;
+                if (nowScrollTop + _boxHeight > _height - 100) {
+                    this.scroll = true;
+                    var self = this;
+                    if (self.listData.length >= self.total) return;
+                    self.currentPage++;
+                    self.requestList(true)
+                }
+            },
         },
         components:{
             XHeader,Tab, TabItem,minecard

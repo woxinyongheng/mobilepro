@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <x-header :left-options="{showBack: false}" style="background-color:#2CC7C5;">我的工作
-            <a style="color: #fff" slot="right" @click="repairShow=true">设备报修</a>
+            <a style="color: #fff" slot="right" @click="deviceRepair">设备报修</a>
         </x-header>
         <div class="banner"></div>
         <div class="cardbox">
@@ -11,14 +11,14 @@
                     <div class="carditem common-1px-r" @click="mineRouterTo('0')">
                         <img src="../../../static/image/maintan.png" alt="">
                         <div class="rightitem">
-                            <p class="miancolor-1">150</p>
+                            <p class="miancolor-1">{{myData.repairCount}}</p>
                             <p class="">维修任务</p>
                         </div>
                     </div>
                     <div class="carditem" @click="mineRouterTo('1')">
                         <img src="../../../static/image/service.png" alt="">
                         <div class="rightitem">
-                            <p class="miancolor-2">150</p>
+                            <p class="miancolor-2">{{myData.maintainCount}}</p>
                             <p>保养任务</p>
                         </div>
                     </div>
@@ -31,14 +31,14 @@
                     <div class="carditem common-1px-r" @click="teamRouterTo('0')">
                         <img src="../../../static/image/maintan.png" alt="">
                         <div class="rightitem">
-                            <p class="miancolor-1">150</p>
+                            <p class="miancolor-1">{{teamData.repairCount}}</p>
                             <p class="">维修任务</p>
                         </div>
                     </div>
                     <div class="carditem" @click="teamRouterTo('1')">
                         <img src="../../../static/image/service.png" alt="">
                         <div class="rightitem">
-                            <p class="miancolor-2">150</p>
+                            <p class="miancolor-2">{{teamData.maintainCount}}</p>
                             <p>保养任务</p>
                         </div>
                     </div>
@@ -136,23 +136,59 @@
                                   }
                               }
                           },
-                          data: [{
-                              value: 8,
-                              name: '保养任务'
-                          }, {
-                              value: 35,
-                              name: '维修任务'
-                          }]
+                          data: []
                       }
                   ]
               },
-              repairShow:false
+              repairShow:false,
+              myData:{},
+              teamData:{},
+
           }
         },
         mounted(){
-            this.drawLine()
+            this.requestWechart()
+
+            this.requestInfo1()
+            this.requestInfo2()
+
+
         },
         methods: {
+            //班组---我的任务
+            requestInfo1(){
+                let vm =this
+                vm.$http.post('appMyWork/getMyWorkByTeam',{}).then(res=>{
+                    if(res.code==200){
+                        vm.myData =res.data
+                    }
+                })
+            },
+            //班组---班组任务
+            requestInfo2(){
+                let vm =this
+                vm.$http.post('appMyWork/getTeamWork',{}).then(res=>{
+                    if(res.code==200){
+                        vm.teamData =res.data
+                    //    统计图
+                        let _main = res.data.maintainCountNum.replace('%','')*1
+                        let _repair = res.data.repairCountNum.replace('%','')*1
+                        vm.options.series[0].data=[{
+                            value: res.data.total*(_main/(_main+_repair)),
+                            name: '保养任务'
+                        }, {
+                            value: res.data.total*(_repair/(_main+_repair))+1,
+                            name: '维修任务'
+                        }
+                        ]
+                        vm.options.graphic.style.text = '共计'+res.data.total
+                        vm.drawLine()
+                    }
+
+                })
+            },
+
+
             drawLine(){
                 let vm = this
                 let mycharts = this.$echarts.init(document.getElementById('myChart'));
@@ -161,8 +197,16 @@
             },
             //我的报修
             routertosacn(num){
+                let vm =this
                 if(num==0){
-
+                    wx.scanQRCode({
+                        needResult : 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                        scanType : [], // 可以指定扫二维码还是一维码，默认二者都有
+                        success : function(res) {
+                            var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                            vm.$router.push('/Grade/'+result)
+                        }
+                    });
 
                     return
                 }
@@ -177,6 +221,57 @@
             mineRouterTo(num){
                 let _path = '/'+ (num==1?'MainTask':"ServiceTask")
                 this.$router.push(_path)
+            },
+
+            //设备报修
+            deviceRepair(){
+                let vm =this
+                this.requestWechart()
+                vm.repairShow=true
+            },
+            requestWechart(){
+                let vm =this
+                if(!sessionStorage.getItem('WECHART')){
+                    vm.$http.get(__PATH.WECHART+'accessToken/getSignature?localUrl='+location.hostname).then(res=>{
+                        if(res.code==200){
+                            wx.config({
+                                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                appId: res.data.appId, // 必填，公众号的唯一标识
+                                timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+                                nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+                                signature: res.data.signature, // 必填，签名，见附录1
+                                jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo", "onMenuShareQZone", "hideMenuItems", "showMenuItems",'scanQRCode','startRecord','stopRecord']
+                            });
+                            wx.ready(function() {
+                                wx.hideMenuItems({
+                                    menuList: [
+                                        'menuItem:refresh', //刷新
+                                        'menuItem:share:appMessage',
+                                        'menuItem:share:timeline',
+                                        'menuItem:share:qq',
+                                        'menuItem:share:weiboApp',
+                                        'menuItem:favorite',
+                                        'menuItem:share:QZone',
+                                        'menuItem:share:facebook',
+                                        'menuItem:openWithSafari',
+                                        'menuItem:openWithQQBrowser',
+                                        'menuItem:copyUrl', // 复制链接
+                                        'menuItem:scanQRCode'
+                                    ],
+                                    success: function(res) {
+                                        sessionStorage.setItem('WECHART', 'TRUE')
+                                    },
+                                    fail: function(res) {}
+                                });
+                                wx.onVoicePlayEnd({
+                                    success: function (res) {
+                                        stopWave();
+                                    }
+                                });
+                            })
+                        }
+                    })
+                }
             }
 
         },

@@ -5,29 +5,29 @@
             <div class="card">
                 <p class="title">
                     设备信息
-                    <span class="stabun">报废</span>
-                    <img src="../../../../static/image/down.png" alt="">
+                    <span class="stabun">{{dataInfo.equipmentState==0?'正常':(dataInfo.equipmentState==1?'延期':'报废')}}</span>
+                    <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
                 </p>
-                <div>
+                <div v-show="show1">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>设备编号:</span><span>********</span>
+                            <span>设备编号:</span><span>{{deviceInfo.assetsCode}}</span>
                         </li>
                         <li>
-                            <span>设备名称:</span><span>9号楼8号电梯</span>
+                            <span>设备名称:</span><span>{{deviceInfo.assetsName}}</span>
                         </li>
                         <li>
-                            <span>设备类型:</span><span>#353535</span>
+                            <span>设备类型:</span><span>{{deviceInfo.classifyName}}</span>
                         </li>
                         <li>
-                            <span>设备品牌:</span><span>某某品牌</span>
+                            <span>设备品牌:</span><span>{{deviceInfo.brandName}}</span>
                         </li>
                         <li>
-                            <span>所处区域:</span><span>9号楼8层425室</span>
+                            <span>所处区域:</span><span>{{deviceInfo.areaName}}</span>
                         </li>
                         <li>
-                            <span>存放位置:</span><span>9号楼8层425室</span>
+                            <span>存放位置:</span><span>{{deviceInfo.storageLocation}}</span>
                         </li>
                     </ul>
                 </div>
@@ -37,41 +37,35 @@
             <div class="card orther">
                 <p class="title">
                     报修信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show2=!show2">
                 </p>
-                <div>
+                <div v-show="show2">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>任务编号:</span><span>********</span>
+                            <span>任务编号:</span><span>{{dataInfo.repairCode}}</span>
                         </li>
                         <li>
-                            <span>报修人:</span><span>9号楼8号电梯</span>
+                            <span>报修人:</span><span>{{dataInfo.reportPersonName}}</span>
                         </li>
                         <li>
-                            <span>联系电话:</span><span>#353535</span>
+                            <span>联系电话:</span><span>{{dataInfo.reportPersonPhone}}</span>
                         </li>
                         <li>
-                            <span>报修时间:</span><span>某某品牌</span>
+                            <span>报修时间:</span><span>{{dataInfo.reportTime}}</span>
                         </li>
                         <li class="liborder">
                             <span>维修说明:</span>
-                            <p class="text">故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明障说明故障说明故障说明故障说明故障说明故障说</p>
+                            <p class="text">{{dataInfo.repairExplain}}</p>
                             <p class="voice">
-                                <span>
-                                    <img src="../../../../static/image/palyvoice.png" alt="">44"
-                                </span>
-                                播放语音
+                                <audio v-if="dataInfo.repairContentAttachmentUrl" class="voiceitem" :src="dataInfo.repairContentAttachmentUrl" controls="controls"></audio>
+
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
                             <p class="img">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-
-
+                                <img v-for="item in dataInfo.repairAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
 
@@ -81,22 +75,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="deviceInfo.state!=0">
                 <p class="title">
                     派工信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
                 </p>
-                <div>
+                <div v-show="show3">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>派工时间:</span><span>2018-07-15  15:23</span>
+                            <span>派工时间:</span><span>{{dataInfo.assignTime}}</span>
                         </li>
                         <li>
-                            <span>派工人:</span><span>9号楼8号电梯</span>
+                            <span>派工人:</span><span>{{dataInfo.assignPersonName}}</span>
                         </li>
                         <li>
-                            <span>执行人:</span><span>#353535</span>
+                            <span>执行人:</span><span>{{dataInfo.implementPersonName}}</span>
                         </li>
                     </ul>
                 </div>
@@ -104,23 +98,22 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="deviceInfo.state==2 || deviceInfo.state==3">
                 <p class="title">
                     挂单信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
                 </p>
-                <div>
+                <div v-show="show4">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>挂单时间:</span><span>2018-07-15  15:23</span>
+                            <span>挂单时间:</span><span>{{dataInfo.paymentTime}}</span>
                         </li>
                         <li>
-                            <span>挂单原因:</span><span>9号楼8号电梯</span>
+                            <span>挂单原因:</span><span>{{dataInfo.paymentCause}}</span>
                         </li>
                         <li>
-                            <span>其他说明:</span><span>说明说明说明说明说明说明说明说明
-说明说明说明说明说明说明</span>
+                            <span>其他说明:</span><span>{{dataInfo.otherExplain}}</span>
                         </li>
                     </ul>
                 </div>
@@ -128,36 +121,36 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="deviceInfo.state==3">
                 <p class="title">
                     维修信息
-                    <img src="../../../../static/image/down.png" alt="">
+                    <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
                 </p>
-                <div>
+                <div v-show="show5">
                     <hr class="hr">
                     <ul>
                         <li>
-                            <span>维修日期:</span><span>2018-07-15  15:23</span>
+                            <span>维修日期:</span><span>{{dataInfo.repairTime}}</span>
                         </li>
                         <li>
-                            <span>维修人:</span><span>9号楼8号电梯</span>
+                            <span>维修人:</span><span>{{dataInfo.repairPersonName}}</span>
                         </li>
                         <li>
-                            <span>联系电话:</span><span>说明说明</span>
+                            <span>联系电话:</span><span>{{dataInfo.repairPersonPhone}}</span>
                         </li>
                         <li>
                             <span>使用配件:</span>
-                            <p class="table"><span>过滤管</span><span>✖2</span><span>435元</span></p>
-                            <p class="table"><span>过滤管</span><span>✖2</span><span>435元</span></p>
+                            <p class="table" v-if="dataInfo.partsName"><span>{{dataInfo.partsName}}</span><span>✖{{dataInfo.partsSum}}</span><span></span></p>
+                            <!--<p class="table"><span>过滤管</span><span>✖2</span><span>435元</span></p>-->
 
                         </li>
 
 
                         <li>
-                            <span>其他支出:</span><span>说明说明</span>
+                            <span>其他支出:</span><span>{{dataInfo.servicePay}}</span>
                         </li>
                         <li class="liborder">
-                            <span>维修总支出:</span><span>说明说明</span>
+                            <span>维修总支出:</span><span>{{dataInfo.repairPay}}</span>
                         </li>
 
 
@@ -165,22 +158,17 @@
 
                         <li class="liborder">
                             <span>维修说明:</span>
-                            <p class="text">故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明故障说明障说明故障说明故障说明故障说明故障说明故障说</p>
+                            <p class="text">{{dataInfo.repairFinishExplain}}</p>
                             <p class="voice">
-                                <span>
-                                    <img src="../../../../static/image/palyvoice.png" alt="">44"
-                                </span>
-                                播放语音
+                            <p class="voice">
+                                <audio v-if="dataInfo.finishContentAttachmentUrl" class="voiceitem" :src="dataInfo.finishContentAttachmentUrl" controls="controls"></audio>
+
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
                             <p class="img">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-                                <img src="../../../../static/image/maintan.png" alt="">
-
-
+                                <img v-for="item in dataInfo.finishAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -190,7 +178,7 @@
 
 
 
-            <div class="buttonbox">
+            <div class="buttonbox" v-if="deviceInfo.state==0">
                 <p @click="ranlingshow=true">认领</p>
                 <p @click="selectPerson">指派</p>
             </div>
@@ -213,18 +201,56 @@
         name: "TMainInfo",
         data:function(){
             return{
-                ranlingshow:false
+                ranlingshow:false,
+                dataInfo:'',
+                deviceInfo:'',
+                show1:true,
+                show2:true,
+                show3:true,
+                show4:true,
+                show5:true
             }
+        },
+        mounted(){
+            let vm =this
+            this.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
+            this.requestInfo()
         },
         methods:{
             //认领
             onConfirm(){
-                debugger
+                let vm =this
+                vm.$http.post('appMyWork/claimWorkOrderByStaffId',{
+                    repairId:vm.$route.params.id
+                }).then(res=>{
+                    if(res.code==200){
+                        vm.$vux.toast.show({
+                            text:res.message,
+                            time:2000
+                        })
+                        vm.$router.push('/TServiceTask')
+                    }
+                })
             },
             //    指派
             selectPerson(){
-                this.$router.push('/selectPerson/1')
+                let vm =this
+                this.$router.push('/selectPerson/weixiu/'+vm.dataInfo.repairCode)
+            },
+            requestInfo(){
+                let vm =this
+                vm.$http.post('equipmentListController/getRepairDetailById',{
+                    id:vm.$route.params.id
+                }).then(res=>{
+                    if(res.code==200){
+                        vm.dataInfo = res.data.repair
+                    }
+                })
             }
+        },
+        destroyed(){
+            let vm =this
+            sessionStorage.removeItem(vm.deviceInfo.id)
         },
 
         components:{
@@ -324,23 +350,17 @@
                             line-height: 0.2rem;
                         }
                         .voice{
-                            width: 88%;
                             height: 0.4rem;
                             margin: 0 auto;
-                            background-color: #38C7C4;
                             color: #ffffff;
                             position: relative;
                             text-align: center;
                             margin-top: 0.3rem;
                             border-radius: 4px;
                             margin-bottom: 0.1rem;
-                            span{
-                                position: absolute;
-                                left: 0.1rem;
-                            }
-                            img{
-                                width: 0.2rem;
-                                vertical-align: middle;
+                            .voiceitem{
+                                background-color: #38C7C4;
+
                             }
                         }
                         .img{

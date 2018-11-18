@@ -16,16 +16,28 @@ import  MainTask from '@/components/team/minetask/MainTask' //我的保养
 import  MainInfo from '@/components/team/minetask/MainInfo'  //我的保养详情
 
 import  ServiceTask from '@/components/team/minetask/ServiceTask'//我的维修
+import ServiceInfo from '@/components/team/minetask/ServiceInfo'
 
 
 
 //我的
 import Mine from '@/components/team/Mine'
+import RepairInfo from '@/components/team/RepairInfo'
 
 
 //报修
 import SelectDevice from '@/components/scan/SelectDevice'
 import  Grade from '@/components/scan/Grade'
+
+
+//挂单
+import PayMent from '@/components/team/minetask/PayMent'
+//维修
+import Repair from '@/components/team/minetask/Repair'
+import AddParts from '@/components/team/minetask/AddParts'
+
+//保养登记
+import Maintain from '@/components/team/minetask/Maintain'
 
 Vue.use(Router)
 
@@ -69,6 +81,10 @@ export default new Router({
           name:'TServiceTask',
           component:TServiceTask
       },{
+        path:'/ServiceInfo/:id',
+          name:'ServiceInfo',
+          component:ServiceInfo
+      },{
           path:'/MainTask',
           name:'MainTask',
           component:MainTask
@@ -81,7 +97,7 @@ export default new Router({
           name:'TMainInfo',
           component:TMainInfo
       },{
-          path:'/SelectPerson/:ids',
+          path:'/SelectPerson/:type/:ids',
           name:'SelectPerson',
           component:SelectPerson
       },{
@@ -92,6 +108,26 @@ export default new Router({
           path:'/MainInfo/:id',
           name:'MainInfo',
           component:MainInfo
+      },{//RepairInfo
+          path:'/RepairInfo/:id/:equipid/:state',
+          name:'RepairInfo',
+          component:RepairInfo
+      },{
+        path:'/PayMent/:type/:id',
+          name:'PayMent',
+          component:PayMent
+      },{
+      path:'/Repair/:id',
+          name:'Repair',
+          component:Repair
+      },{
+        path:'/AddParts',
+          name:'AddParts',
+          component:AddParts
+      },{
+        path:'/Maintain/:id',
+          name:'Maintain',
+          component:Maintain
       }
 
   ]

@@ -1,28 +1,26 @@
 <template>
     <div class="card" @click="toInfoHandle">
         <div class="title">
-            <span class="stabun">{{item.maintainType==1?'维保':'质保'}}</span>任务编号: <span>{{item.maintainCode}}</span>
-            <span class="status" v-if="type==0" :class="type==0?'error':''">未开始</span>
-            <span class="status" v-if="type==1" :class="type==1?'error':''">已挂单</span>
-            <span class="status" v-if="type==3" :class="type==3?'error':''">已完成</span>
-            <span class="status" v-if="type=='over'" :class="type==3?'error':''">已超时</span>
-
+            任务编号: <span>{{item.repairCode}}</span>
+            <span v-if="item.state==0" class="status" :class="type==0?'error':''">未开始</span>
+            <span v-if="item.state==1" class="status" :class="type==1?'error':''">已挂单</span>
+            <span v-if="item.state==3" class="status" :class="type==1?'error':''">已完成</span>
 
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>任务名称：</span><span class="right">{{item.maintainItem}}</span>
+                    <span>设备名称：</span><span class="right">{{item.assetsName}}</span>
                 </li>
                 <li>
-                    <span>保养任务：</span><span class="right">{{item.maintainItem}}</span>
+                    <span>设备类型：</span><span class="right">{{item.classifyName}}</span>
                 </li>
                 <li>
-                    <span>维保单位：</span><span class="right">{{item.company}}</span>
+                    <span>所处区域：</span><span class="right">{{item.areaName}}</span>
                 </li>
                 <li>
-                    <span>规定时间：</span><span class="right">{{item.requirementPlanTime}}</span>
+                    <span>报修日期：</span><span class="right">{{item.reportTime}}</span>
                 </li>
             </ul>
         </div>
@@ -32,7 +30,7 @@
 <script>
     export default {
         props:['type','item'],
-        name: "Card",
+        name: "serviceCard",
         methods:{
             toInfoHandle(){
                 let vm =this
@@ -55,6 +53,8 @@
             line-height: 0.39rem;
             color: #353535;
             font-weight: 500;
+            margin-left: 0.14rem;
+
             font-size: 0.16rem;
             box-sizing: border-box;
             margin-bottom: 0.06rem;
@@ -94,6 +94,15 @@
             border-right:none;
 
             border-bottom:none;
+        }
+        .title::before{
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 0.14rem;
+            background-color: #38C7C4;
+            left: -0.1rem;
+            top: 0.12rem;
         }
 
         .list{

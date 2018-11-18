@@ -10,11 +10,17 @@
         </div>
         <div class="content">
             <group>
-                <radio :options="radio001" @on-change="change"></radio>
+                <radio :options="radio001" @on-change="change">
+                    <template slot-scope="props" slot="each-item"><!-- use scope="props" when vue < 2.5.0 -->
+                        <p>
+                            {{ props.label }}
+                        </p>
+                    </template>
+                </radio>
             </group>
         </div>
         <div class="buttonbox">
-            <p>确定</p>
+            <p @click="sureSubmit">确定</p>
         </div>
     </div>
 </template>
@@ -26,12 +32,82 @@
         name: "SelectPerson",
         data:function(){
           return{
-              radio001: [ 'China', 'Japan' ],
+              radio001: [],
+              selectId:''
           }
         },
+        mounted(){
+          this.requestPerson()
+        },
         methods:{
-            change(){
+            sureSubmit(){
+                let vm =this
+                if(!vm.selectId){
+                    vm.$vux.toast.show({
+                        text:'请选择指派人员',
+                        time:2000
+                    })
+                    return
+                }
+                let _name = ''
+                let _i = vm.radio001.findIndex(function (item) {
+                    return item.key == vm.selectId
+                })
+                _name = vm.radio001[_i].value
+                if(vm.$route.params.type=='weixiu'){
 
+                    vm.$http.post('appMyWork/designateWorkOrderByStaffId',{
+                        staffId:vm.selectId,
+                        staffName:_name,
+                        repairId:vm.$route.params.ids
+                    }).then(res=>{
+                        if(res.code==200){
+                            vm.$vux.toast.show({
+                                text:res.message,
+                                time:2000
+                            })
+                            vm.$router.push('/TServiceTask')
+                        }
+                    })
+                }else if(vm.$route.params.type=='baoyang'){
+                    vm.$http.post('AppmaintainController/claimOrAssignMaintain',{
+                        type:0,
+                        id:vm.$route.params.ids,
+                        implementPersonCode:vm.selectId,
+                        implementPersonName: _name
+                    }).then(res=>{
+                        if(res.code==200){
+                            vm.$vux.toast.show({
+                                text:'指派成功',
+                                time:2000
+                            })
+                            vm.$router.push('/TMainTask')
+                        }
+                    })
+                }
+
+            },
+            change(e){
+                this.selectId=e
+            },
+            requestPerson(){
+                let vm =this
+                vm.$http.post('appMyWork/getTeamMembers',{}).then(res=>{
+                    if(res.code==200){
+
+                        let arr = []
+                        res.data.data.forEach(function (item) {
+                            let _o ={}
+                           for(let i in item){
+                               _o.key = i
+                               _o.value = item[i]
+
+                           }
+                           arr.push(_o)
+                        })
+                        vm.radio001 = arr
+                    }
+                })
             }
         },
         components:{

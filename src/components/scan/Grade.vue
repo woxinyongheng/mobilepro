@@ -27,7 +27,7 @@
                 <div class="title">报修记录</div>
                 <!--<hr class="hr">-->
                 <group style="font-size: 0.14rem">
-                    <datetime v-model="value1" title="报修时间"></datetime>
+                    <datetime v-model="value1" format="YYYY-MM-DD"  title="报修时间"></datetime>
                     <x-input title="报修人"  text-align="right" placeholder="" v-model="username"></x-input>
 
                     <!--<group title="报修人电话">-->
@@ -68,11 +68,12 @@
 <script>
     import { XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon} from 'vux'
     import upload from '@/components/common/UpLoad'
+    import { dateFormat } from 'vux'
     export default {
         name: "Grade",
         data:function(){
             return{
-                value1:'',
+                value1:dateFormat(new Date(), 'YYYY-MM-DD'),
                 list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
                 list:[{key: 'gd', name: 'feifei'}, {key: 'gx', name: 'longlong'}],
                 defaultValue:[],

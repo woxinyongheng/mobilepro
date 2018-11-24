@@ -1,27 +1,32 @@
 <template>
-    <div class="card" @click="toInfoHandle">
+    <div class="card" @click="routerToinfo">
         <div class="title">
-            任务编号: <span>{{item.repairCode}}</span>
-            <span v-if="item.state==0" class="status" :class="type==1?'error':''">未派工</span>
-            <span v-if="item.state==1" class="status" :class="type==1?'error':''">已派工</span>
-            <span v-if="item.state==2" class="status" :class="type==1?'error':''">已挂单</span>
-            <span v-if="item.state==3" class="status" :class="type==1?'error':''">已完成</span>
+            <span class="stabun">{{item.maintainType==1?'维保':'质保'}}</span>
+            {{item.planName}}保养计划
+            <span class="status" v-if="item.taskState==0">进行中</span>
+            <span class="status" v-if="item.taskState==1">未完成</span>
+            <span class="status" v-if="item.taskState==2">已完成</span>
 
         </div>
         <hr class="hr">
         <div class="list">
             <ul>
                 <li>
-                    <span>设备名称：</span><span class="right">{{item.assetsName}}</span>
+                    <span>设备名称：</span><span class="right">{{item.planName}}</span>
                 </li>
                 <li>
-                    <span>设备类型：</span><span class="right">{{item.classifyName}}</span>
+                    <span>保养周期：</span><span class="right">{{item.cycleType==0?'周':(item.cycleType==1?'半月':(item.cycleType==2?'月':(item.cycleType==3?'季度':(item.cycleType==4?'半年':'年'))))}}
+
+                    </span>
                 </li>
                 <li>
-                    <span>所处区域：</span><span class="right">{{item.areaName}}</span>
+                    <span>保养项目：</span><span class="right">{{item.maintainName}}</span>
                 </li>
                 <li>
-                    <span>报修日期：</span><span class="right">{{item.reportTime}}</span>
+                    <span>维保公司：</span><span class="right">{{item.company}}</span>
+                </li>
+                <li>
+                    <span>计划时间：</span><span class="right">{{item.startTime+'-'+item.endTime}}</span>
                 </li>
             </ul>
         </div>
@@ -30,12 +35,11 @@
 
 <script>
     export default {
-        props:['type','item'],
-        name: "serviceCard",
+        props:['item'],
+        name: "card",
         methods:{
-            toInfoHandle(){
-                let vm =this
-                this.$emit('toInfoHandle',vm.item)
+            routerToinfo(){
+                this.$emit('routerToinfo',this.item)
             }
         }
     }
@@ -52,10 +56,9 @@
             position: relative;
             height: 0.39rem;
             line-height: 0.39rem;
+            /*margin-left: 0.14rem;*/
             color: #353535;
             font-weight: 500;
-            margin-left: 0.14rem;
-
             font-size: 0.16rem;
             box-sizing: border-box;
             margin-bottom: 0.06rem;
@@ -82,9 +85,6 @@
                 right: 0.14rem;
                 font-size: 0.12rem;
             }
-            .error{
-                color: #FF2020;
-            }
         }
         .hr{
             margin: 0 -0.1rem;
@@ -96,16 +96,6 @@
 
             border-bottom:none;
         }
-        .title::before{
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 0.14rem;
-            background-color: #38C7C4;
-            left: -0.1rem;
-            top: 0.12rem;
-        }
-
         .list{
             margin-top: 0.1rem;
             padding:0 0.2rem;

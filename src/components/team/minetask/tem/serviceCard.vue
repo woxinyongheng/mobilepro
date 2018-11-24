@@ -118,11 +118,11 @@
                         font-weight: 400;
                     }
                     span:nth-of-type(1){
-                        width: 0.8rem;
+                        width: 1rem;
                     }
                     .right{
                         font-weight: 300;
-                        width: calc(100% - 0.8rem);
+                        width: calc(100% - 1rem);
                         /*line-height: 0.25rem;*/
                         /*padding: 0.1rem 0;*/
                     }

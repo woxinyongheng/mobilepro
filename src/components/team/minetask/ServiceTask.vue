@@ -7,9 +7,12 @@
             <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
         </tab>
         <div class="content" @scroll="scrollAjax">
-            <div class="scrollbox">
+            <div class="scrollbox" v-if="listData.length">
                 <serviceCard v-for="item in listData" :item="item" :type="type" @toInfoHandle="toInfoHandle"></serviceCard>
 
+            </div>
+            <div v-if="!listData.length">
+                <none></none>
             </div>
         </div>
 
@@ -19,6 +22,7 @@
 <script>
     import { XHeader,Tab, TabItem} from 'vux'
     import serviceCard from './tem/serviceCard'
+    import none from '@/components/common/none'
 
     export default {
         name: "ServiceTask",
@@ -49,21 +53,40 @@
             },
             requestList(str){
                 let vm =this
-                vm.$http.post('repair/getMaintenanceOrder',{
-                    currentPage:vm.currentPage,
-                    pageSize:vm.pageSize,
-                    state:vm.state,
-                }).then(res=>{
-                    if(res.code==200){
-                        if(str){
-                            vm.listData = vm.listData.concat(res.data.list)
-                        }else{
-                            vm.listData = res.data.list
+                if(JSON.parse(localStorage.getItem('ROLECODE')).ROLECODE=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).ROLECODE=='worker'){
+                    vm.$http.post('/appMyWork/getMaintenanceTaskByMark',{
+                        currentPage:vm.currentPage,
+                        pageSize:vm.pageSize,
+                        state:vm.state,
+                        interfaceNum:'2'
+                    }).then(res=>{
+                        if(res.code==200){
+                            if(str){
+                                vm.listData = vm.listData.concat(res.data.list)
+                            }else{
+                                vm.listData = res.data.list
+                            }
+                            vm.scroll =false
+                            vm.total = res.data.count
                         }
-                        vm.scroll =false
-                        vm.total = res.data.count
-                    }
-                })
+                    })
+                }else{
+                    vm.$http.post('repair/getMaintenanceOrder',{
+                        currentPage:vm.currentPage,
+                        pageSize:vm.pageSize,
+                        state:vm.state,
+                    }).then(res=>{
+                        if(res.code==200){
+                            if(str){
+                                vm.listData = vm.listData.concat(res.data.list)
+                            }else{
+                                vm.listData = res.data.list
+                            }
+                            vm.scroll =false
+                            vm.total = res.data.count
+                        }
+                    })
+                }
             },
             //    滚动处理
             scrollAjax(e) {
@@ -81,7 +104,7 @@
             },
         },
         components:{
-            XHeader,Tab, TabItem,serviceCard
+            XHeader,Tab, TabItem,serviceCard,none
         },
     }
 </script>

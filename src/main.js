@@ -40,8 +40,8 @@ Vue.prototype.$http = {
             var obj = JSON.parse(localStorage.getItem('loginInfo'))
             param.unitCode = obj.unitCode
             param.hospitalCode = obj.hospitalCode
-            param.userId = param.teamJudge?obj.officeCode:obj.id
-            param.roleCode = JSON.parse(localStorage.getItem('ROLECODE')).roleCode
+            param.userId = obj.id
+            // param.roleCode = JSON.parse(localStorage.getItem('ROLECODE')).roleCode
             param.roleCode = obj.roleCode   //测试使用
 
             param.userName = obj.name
@@ -79,7 +79,6 @@ axios.interceptors.request.use(config => { //spinShowSet
 
 axios.interceptors.response.use(data => {
     Vue.$vux.loading.hide()
-    debugger
     if(data.data.code!=200){
         Vue.$vux.toast.show({
             text:data.data.message,

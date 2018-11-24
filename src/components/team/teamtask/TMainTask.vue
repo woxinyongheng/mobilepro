@@ -9,9 +9,12 @@
             <tab-item active-class="active" @on-item-click="onItemClick('over')">已超时</tab-item>
         </tab>
         <div class="content" @scroll="scrollAjax">
-            <div class="scrollbox">
+            <div class="scrollbox" v-if="listData.length">
                 <minecard v-for="item in listData" :item="item" :type="type" @toInfoHandle="toInfoHandle"></minecard>
 
+            </div>
+            <div v-if="!listData.length">
+                <none></none>
             </div>
 
             <!--<minecard :type="2"></minecard>-->
@@ -22,6 +25,8 @@
 <script>
     import { XHeader,Tab, TabItem} from 'vux'
     import minecard from './tem/Card'
+    import none from '@/components/common/none'
+
     export default {
         name: "MainTask",
         data:function () {
@@ -91,7 +96,7 @@
             },
         },
         components:{
-            XHeader,Tab, TabItem,minecard
+            XHeader,Tab, TabItem,minecard,none
         },
     }
 </script>

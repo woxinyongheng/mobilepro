@@ -16,6 +16,7 @@ export default {
       this.requestColeLode()
     },
     methods:{
+      //worker teamleader
       requestColeLode(){
           let vm =this
           if (!sessionStorage.getItem('ROLECODE') && localStorage.getItem('isLogin') == '1') {

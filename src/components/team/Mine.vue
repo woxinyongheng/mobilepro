@@ -8,9 +8,11 @@
             <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
         </tab>
         <div class="content" @scroll="scrollAjax">
-            <div class="scrollbox">
+            <div class="scrollbox" v-if="listData.length">
                 <mincard v-for="(item,index) in listData" :key="index" :item="item"  @routerToinfo="routerToinfo"></mincard>
-
+            </div>
+            <div class="none" v-if="!listData.length">
+                <none></none>
             </div>
         </div>
     </div>
@@ -19,6 +21,8 @@
 <script>
   import { XHeader,Tab, TabItem} from 'vux'
   import mincard from '../minetem/Card'
+  import none from '@/components/common/none'
+
 
   export default {
         name: "Mine",
@@ -81,7 +85,7 @@
           },
       },
         components:{
-          XHeader,Tab, TabItem,mincard
+          XHeader,Tab, TabItem,mincard,none
         },
     }
 </script>

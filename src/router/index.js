@@ -39,6 +39,12 @@ import AddParts from '@/components/team/minetask/AddParts'
 //保养登记
 import Maintain from '@/components/team/minetask/Maintain'
 
+// 计划任务
+import PlanTask from '@/components/plan/PlanTask'
+import PlanInfo from '@/components/plan/PlanInfo'
+import TaskInfo from '@/components/plan/TaskInfo'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -128,6 +134,18 @@ export default new Router({
         path:'/Maintain/:id',
           name:'Maintain',
           component:Maintain
+      },{
+        path:'/PlanTask',
+          name:'PlanTask',
+          component:PlanTask
+      },{
+      path:'/PlanInfo/:id',
+          name:'PlanInfo',
+          component:PlanInfo
+      },{
+      path:'/TaskInfo/:id',
+          name:'TaskInfo',
+          component:TaskInfo
       }
 
   ]

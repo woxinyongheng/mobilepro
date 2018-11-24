@@ -1,13 +1,13 @@
 <template>
     <div class="selectperson">
         <x-header  style="background-color:#2CC7C5;">选择人员</x-header>
-        <div class="banner">
-            <div class="searchbox">
-                <img src="../../../../static/image/search.png" alt="">
-                <input type="text" placeholder="请输入人员">
-                <span>搜索</span>
-            </div>
-        </div>
+        <!--<div class="banner">-->
+            <!--<div class="searchbox">-->
+                <!--<img src="../../../../static/image/search.png" alt="">-->
+                <!--<input type="text" placeholder="请输入人员">-->
+                <!--<span>搜索</span>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="content">
             <group>
                 <radio :options="radio001" @on-change="change">

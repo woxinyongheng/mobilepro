@@ -17,7 +17,8 @@
                 </div>
                 <div class="content">
 
-                    <minecard v-for="(item,index) in listData" :key="index" :item="item" @toGrade="toGrade"></minecard>
+                    <minecard v-if="listData.length" v-for="(item,index) in listData" :key="index" :item="item" @toGrade="toGrade"></minecard>
+                    <none v-if="!listData.length"></none>
 
                 </div>
             </div>
@@ -30,6 +31,8 @@
 <script>
     import {XHeader} from 'vux'
     import minecard from './Card'
+    import none from '@/components/common/none'
+
 
     export default {
         name: "SelectDevice",
@@ -100,7 +103,7 @@
             },
         },
         components: {
-            XHeader, minecard
+            XHeader, minecard,none
         },
     }
 </script>

@@ -4,6 +4,11 @@ const routerConfig = () => {
   router.beforeEach((to, from, next) => {
     let toPath = to.name
     let fromPath = from.name
+      if(localStorage.getItem('isLogin')!=1){
+        localStorage.setItem('prevLinkUrl',location.href)
+        location.href = __PATH.LOGOUT
+        return
+      }
     if(!localStorage.getItem('loginInfo')&& toPath != 'Login'){
       next('/login')
     }

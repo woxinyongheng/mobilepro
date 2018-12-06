@@ -27,6 +27,10 @@ export default {
               }).then(res => {
                   if(res.code==200){
                       localStorage.setItem('ROLECODE',JSON.stringify(res.data))
+                  }else{
+                      localStorage.setItem('prevLinkUrl',location.href)
+                      location.href = __PATH.LOGOUT
+                      return
                   }
               })
           }

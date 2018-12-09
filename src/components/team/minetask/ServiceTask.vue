@@ -53,7 +53,7 @@
             },
             requestList(str){
                 let vm =this
-                if(JSON.parse(localStorage.getItem('ROLECODE')).ROLECODE=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).ROLECODE=='worker'){
+                if(JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='worker'){
                     vm.$http.post('/appMyWork/getMaintenanceTaskByMark',{
                         currentPage:vm.currentPage,
                         pageSize:vm.pageSize,

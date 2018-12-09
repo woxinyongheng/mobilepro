@@ -31,7 +31,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="renwu" v-for="item in dataInfo.maintainTaskList" @click="$router.push('/TaskInfo/'+item.maintainTaskCode)">
+            <div class="renwu" v-for="item in dataInfo.maintainTaskList" @click="$router.push('/TaskInfo/'+$route.params.id)">
                 <div class="title topborder">
                     任务编号：{{item.maintainTaskCode}}
                     <span class="status" v-if="item.state==0">未派工</span>

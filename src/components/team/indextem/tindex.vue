@@ -153,10 +153,10 @@
                         let _main = res.data.maintainCountNum.replace('%', '') * 1
                         let _repair = res.data.repairCountNum.replace('%', '') * 1
                         vm.options.series[0].data = [{
-                            value: res.data.total * (_main / (_main + _repair)),
+                            value: res.data.maintainCount,
                             name: '保养任务'
                         }, {
-                            value: res.data.total * (_repair / (_main + _repair)) + 1,
+                            value: res.data.repairCount,
                             name: '维修任务'
                         }
                         ]

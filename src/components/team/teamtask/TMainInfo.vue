@@ -5,29 +5,29 @@
             <div class="card">
                 <p class="title">
                     设备信息
-                    <span class="stabun">{{dataInfo.equipmentState==0?'正常':(dataInfo.equipmentState==1?'延期':'报废')}}</span>
+                    <span class="stabun" v-if="dataInfo && dataInfo.assetsInfo">{{dataInfo.assetsInfo.equipmentState==0?'正常':(dataInfo.assetsInfo.equipmentState==1?'延期':'报废')}}</span>
                     <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
                 </p>
                 <div v-show="show1">
                     <hr class="hr">
-                    <ul>
+                    <ul v-if="dataInfo">
                         <li>
-                            <span>设备名称:</span><span>{{dataInfo.assetsName}}</span>
+                            <span>设备名称:</span><span>{{dataInfo.assetsInfo.assetsName}}</span>
                         </li>
                         <li>
-                            <span>设备编号:</span><span>{{dataInfo.assetsCode}}</span>
+                            <span>设备编号:</span><span>{{dataInfo.assetsInfo.assetsCode}}</span>
                         </li>
                         <li>
-                            <span>设备类型:</span><span>{{dataInfo.classifyName}}</span>
+                            <span>设备类型:</span><span>{{dataInfo.assetsInfo.classifyName}}</span>
                         </li>
                         <li>
-                            <span>设备品牌:</span><span>{{dataInfo.brandName}}</span>
+                            <span>设备品牌:</span><span>{{dataInfo.assetsInfo.brandName}}</span>
                         </li>
                         <li>
-                            <span>所处区域:</span><span>{{dataInfo.areaName}}</span>
+                            <span>所处区域:</span><span>{{dataInfo.assetsInfo.areaName}}</span>
                         </li>
                         <li>
-                            <span>存放位置:</span><span>{{dataInfo.storageLocation}}</span>
+                            <span>存放位置:</span><span>{{dataInfo.assetsInfo.storageLocation}}</span>
                         </li>
                     </ul>
                 </div>
@@ -41,36 +41,30 @@
                 </p>
                 <div v-show="show2">
                     <hr class="hr">
-                    <ul>
+                    <ul v-if="dataInfo">
                         <li>
-                            <span>任务编号:</span><span>{{dataInfo.maintainCode}}</span>
+                            <span>任务编号:</span><span>{{dataInfo.taskInfo.maintainCode}}</span>
                         </li>
                         <li>
-                            <span>保养类型:</span><span>{{dataInfo.maintainType==0?'质保':'维保'}}</span>
+                            <span>保养类型:</span><span>{{dataInfo.taskInfo.maintainType==0?'质保':'维保'}}</span>
                         </li>
                         <li>
-                            <span>保养周期:</span>
-                            <span v-if="dataInfo.cycleType==0">周</span>
-                            <span v-if="dataInfo.cycleType==1">半月</span>
-                            <span v-if="dataInfo.cycleType==2">月</span>
-                            <span v-if="dataInfo.cycleType==3">季度</span>
-                            <span v-if="dataInfo.cycleType==4">半年</span>
-                            <span v-if="dataInfo.cycleType==5">年</span>
+                            <span>保养周期:</span><span v-if="dataInfo.taskInfo.cycleType==0">周</span><span v-if="dataInfo.taskInfo.cycleType==1">半月</span><span v-if="dataInfo.taskInfo.cycleType==2">月</span><span v-if="dataInfo.taskInfo.cycleType==3">季度</span><span v-if="dataInfo.taskInfo.cycleType==4">半年</span><span v-if="dataInfo.taskInfo.cycleType==5">年</span>
                         </li>
                         <li>
-                            <span>保养项目:</span><span>{{dataInfo.maintainItem}}</span>
+                            <span>保养项目:</span><span>{{dataInfo.taskInfo.maintainItem}}</span>
                         </li>
                         <li>
-                            <span>维保单位:</span><span>{{dataInfo.maintenanceCompany}}</span>
+                            <span>维保单位:</span><span>{{dataInfo.taskInfo.maintenanceCompany}}</span>
                         </li>
                         <li>
-                            <span>联系人:</span><span>{{dataInfo.maintain_person_name}}</span>
+                            <span>联系人:</span><span>{{dataInfo.taskInfo.maintain_person_name}}</span>
                         </li>
                         <li>
-                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
+                            <span>联系电话:</span><span>{{dataInfo.taskInfo.maintain_person_phone}}</span>
                         </li>
                         <li>
-                            <span>规定时间:</span><span>{{dataInfo.maintain_time}}</span>
+                            <span>规定时间:</span><span>{{dataInfo.taskInfo.maintain_time}}</span>
                         </li>
                     </ul>
                 </div>
@@ -78,22 +72,22 @@
             </div>
 
 
-            <div class="card orther" v-if="dataInfo.state!=0">
+            <div class="card orther" v-if="deviceInfo && deviceInfo && deviceInfo.state!=0">
                 <p class="title">
                     派工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
                 </p>
                 <div v-show="show3">
                     <hr class="hr">
-                    <ul>
+                    <ul v-if="dataInfo">
                         <li>
-                            <span>派工时间:</span><span>{{dataInfo.assign_time}}</span>
+                            <span>派工时间:</span><span>{{dataInfo.assignInfo.assign_time}}</span>
                         </li>
                         <li>
-                            <span>派工人:</span><span>{{dataInfo.assign_person_name}}</span>
+                            <span>派工人:</span><span>{{dataInfo.assignInfo.assign_person_name}}</span>
                         </li>
                         <li>
-                            <span>执行人:</span><span>{{dataInfo.implement_person_name}}</span>
+                            <span>执行人:</span><span>{{dataInfo.assignInfo.implement_person_name}}</span>
                         </li>
                     </ul>
                 </div>
@@ -101,22 +95,22 @@
             </div>
 
 
-            <div class="card orther" v-if="dataInfo.state==1 || dataInfo.state==3">>
+            <div class="card orther" v-if="deviceInfo && deviceInfo.state==1 || deviceInfo.state==3">>
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
                 </p>
                 <div v-show="show4">
                     <hr class="hr">
-                    <ul>
+                    <ul v-if="dataInfo">
                         <li>
-                            <span>挂单时间:</span><span>{{dataInfo.payment_time}}</span>
+                            <span>挂单时间:</span><span>{{dataInfo.paymentInfo.payment_time}}</span>
                         </li>
                         <li>
-                            <span>挂单原因:</span><span>{{dataInfo.payment_cause}}</span>
+                            <span>挂单原因:</span><span>{{dataInfo.paymentInfo.payment_cause}}</span>
                         </li>
                         <li>
-                            <span>其他说明:</span><span>{{dataInfo.otherExplain}}</span>
+                            <span>其他说明:</span><span>{{dataInfo.paymentInfo.otherExplain}}</span>
                         </li>
                     </ul>
                 </div>
@@ -124,35 +118,35 @@
             </div>
 
 
-            <div class="card orther" v-if="dataInfo.state==3">
+            <div class="card orther" v-if="deviceInfo && deviceInfo.state==3">
                 <p class="title">
                     完工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
                 </p>
                 <div v-show="show5">
                     <hr class="hr">
-                    <ul>
+                    <ul v-if="dataInfo">
                         <li>
-                            <span>完工时间:</span><span>{{dataInfo.maintain_time}}</span>
+                            <span>完工时间:</span><span>{{dataInfo.completionInfo.maintain_time}}</span>
                         </li>
                         <li>
-                            <span>保养人:</span><span>{{dataInfo.maintain_person_name}}</span>
+                            <span>保养人:</span><span>{{dataInfo.completionInfo.maintain_person_name}}</span>
                         </li>
                         <li class="liborder">
-                            <span>联系电话:</span><span>{{dataInfo.maintain_person_phone}}</span>
+                            <span>联系电话:</span><span>{{dataInfo.completionInfo.maintain_person_phone}}</span>
                         </li>
                         <li class="liborder">
                             <span>保养说明:</span>
-                            <p class="text">{{dataInfo.maintain_explain}}</p>
+                            <p class="text">{{dataInfo.completionInfo.maintain_explain}}</p>
                             <p class="voice">
-                                <audio v-if="dataInfo.repair_content_attachment_url" class="voiceitem" :src="dataInfo.repair_content_attachment_url" controls="controls"></audio>
+                                <audio v-if="dataInfo.completionInfo.repair_content_attachment_url" class="voiceitem" :src="dataInfo.completionInfo.repair_content_attachment_url" controls="controls"></audio>
 
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
-                            <p class="img" v-if="dataInfo.repair_attachment_url">
-                                <img v-if="item in dataInfo.repair_attachment_url" :src="item" alt="">
+                            <p class="img" v-if="dataInfo.completionInfo.repair_attachment_url">
+                                <img v-if="item in dataInfo.completionInfo.repair_attachment_url" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -161,14 +155,14 @@
             </div>
 
 
-            <div class="card orther" v-if="dataInfo.state==3">
+            <div class="card orther" v-if="deviceInfo && deviceInfo.state==3">
                 <p class="title">
                     保养项目作业书
                     <img src="../../../../static/image/down.png" alt="" @click="show6=!show6">
                 </p>
                 <div v-show="show6">
                     <hr class="hr">
-                    <div class="plan" v-for="item in workList">
+                    <div class="plan" v-if="workList" v-for="item in workList">
                         <p class="plantitle">
                             <span>{{item.content}}</span>
                             <span class="right">
@@ -181,7 +175,7 @@
 
             </div>
 
-            <div class="buttonbox" v-if="dataInfo.state==0">
+            <div class="buttonbox" v-if="deviceInfo && deviceInfo.state==0">
                 <!--/* v-if="dataInfo.state==0"*/-->
                 <p @click="ranlingshow=true">认领</p>
                 <p @click="selectPerson">指派</p>
@@ -214,7 +208,8 @@
               show3:true,
               show4:true,
               show5:true,
-              show6:true
+              show6:true,
+              deviceInfo:''
           }
         },
         mounted(){
@@ -230,7 +225,7 @@
                     id:vm.$route.params.id
                 }).then(res=>{
                     if(res.code==200){
-                        vm.dataInfo = res.data.view
+                        vm.dataInfo = res.data
                     }
                 })
             },

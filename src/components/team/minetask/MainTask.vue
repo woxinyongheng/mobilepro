@@ -76,6 +76,8 @@
             },
             toInfoHandle(item){
                 this.$router.push('/MainInfo/'+item.id)
+                sessionStorage.setItem(item.id,JSON.stringify(item))
+
             },
             //    滚动处理
             scrollAjax(e) {

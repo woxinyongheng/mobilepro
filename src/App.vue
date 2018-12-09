@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="show"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: 'App',
     data:function () {
         return{
-
+          show:false
         }
     },
     mounted(){
@@ -19,6 +19,11 @@ export default {
       //worker teamleader
       requestColeLode(){
           let vm =this
+          if(!JSON.parse(localStorage.getItem('loginInfo')) || !JSON.parse(localStorage.getItem('loginInfo')).unitCode || !JSON.parse(localStorage.getItem('loginInfo')).hospitalCode || !JSON.parse(localStorage.getItem('loginInfo')).id){
+              localStorage.setItem('prevLinkUrl',location.href)
+              location.href = __PATH.LOGOUT
+              return
+          }
           if (!sessionStorage.getItem('ROLECODE') && localStorage.getItem('isLogin') == '1') {
               vm.$http.post(__PATH.FULLPATH + 'userControl/findRoleCodeByUserCode', {
                   unitCode: JSON.parse(localStorage.getItem('loginInfo')).unitCode,
@@ -27,6 +32,8 @@ export default {
               }).then(res => {
                   if(res.code==200){
                       localStorage.setItem('ROLECODE',JSON.stringify(res.data))
+                      vm.show=true
+
                   }else{
                       localStorage.setItem('prevLinkUrl',location.href)
                       location.href = __PATH.LOGOUT

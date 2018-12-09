@@ -35,11 +35,6 @@
             this.requestWechart()
         },
         methods: {
-
-
-
-
-
             //我的报修
             routertosacn(num) {
                 let vm = this

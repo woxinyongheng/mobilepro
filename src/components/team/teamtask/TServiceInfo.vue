@@ -178,7 +178,7 @@
 
 
 
-            <div class="buttonbox" v-if="deviceInfo.state==0">
+            <div class="buttonbox" v-if="deviceInfo.state==0 && roleType">
                 <p @click="ranlingshow=true">认领</p>
                 <p @click="selectPerson">指派</p>
             </div>
@@ -208,7 +208,9 @@
                 show2:true,
                 show3:true,
                 show4:true,
-                show5:true
+                show5:true,
+                roleType:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='worker'
+
             }
         },
         mounted(){

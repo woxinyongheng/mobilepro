@@ -1,6 +1,6 @@
 <template>
     <div class="maintask">
-        <x-header  style="background-color:#2CC7C5;">保养任务</x-header>
+        <x-header  style="background-color:#2CC7C5;" :left-options="{preventGoBack:true}"  @on-click-back="back">保养任务</x-header>
         <tab bar-active-color="#38C7C4">
             <tab-item active-class="active" selected @on-item-click="onItemClick('0')">未派工</tab-item>
             <tab-item active-class="active"  @on-item-click="onItemClick('2')">已派工</tab-item>
@@ -45,6 +45,9 @@
           this.requestList()
         },
         methods:{
+            back(){
+                this.$router.push('/index')
+            },
             requestList(str){
               let vm =this
               vm.$http.post('AppmaintainController/findMaintainList',{

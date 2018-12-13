@@ -40,7 +40,7 @@
                 <group style="font-size: 0.14rem">
 
 
-                    <x-input title="其他支出"  text-align="right" placeholder="" v-model="servicePay"></x-input>
+                    <x-input title="其他支出"  text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>
                     <x-input title="维修总支出" disabled type="number" text-align="right" v-model="repairPay" placeholder=""></x-input>
                 </group>
             </div>

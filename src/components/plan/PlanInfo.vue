@@ -31,18 +31,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="renwu" v-for="item in dataInfo.maintainTaskList" @click="$router.push('/TaskInfo/'+$route.params.id)">
+            <div class="renwu" v-for="item in dataInfo.maintainTaskList" @click="$router.push('/TaskInfo/'+item.id)">
                 <div class="title topborder">
                     任务编号：{{item.maintainTaskCode}}
                     <span class="status" v-if="item.state==0">未派工</span>
                     <span class="status" v-if="item.state==1">已挂单</span>
                     <span class="status" v-if="item.state==2">已派工</span>
-                    <span class="status" v-if="item.state==2">已完成</span>
+                    <span class="status" v-if="item.state==3">已完成</span>
                 </div>
                 <div class="list">
                     <ul>
                         <li>
-                            <span>设备编号：</span><span class="right">{{item.id}}</span>
+                            <span>设备编号：</span><span class="right">{{item.assetsCode}}</span>
                         </li>
                         <li>
                             <span>设备名称：</span><span class="right">{{item.assetName}}</span>

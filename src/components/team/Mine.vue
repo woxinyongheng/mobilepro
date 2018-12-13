@@ -3,8 +3,8 @@
       <x-header :left-options="{showBack: false}" style="background-color:#2CC7C5;">我的报修</x-header>
         <tab bar-active-color="#38C7C4">
             <tab-item active-class="active" selected @on-item-click="onItemClick('0')">未派工</tab-item>
-            <tab-item active-class="active"  @on-item-click="onItemClick('2')">已派工</tab-item>
-            <tab-item active-class="active"  @on-item-click="onItemClick('1')">已挂单</tab-item>
+            <tab-item active-class="active"  @on-item-click="onItemClick('1')">已派工</tab-item>
+            <tab-item active-class="active"  @on-item-click="onItemClick('2')">已挂单</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
         </tab>
         <div class="content" @scroll="scrollAjax">

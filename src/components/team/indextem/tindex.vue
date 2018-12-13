@@ -132,6 +132,7 @@
         mounted(){
             this.requestInfo1()
             this.requestInfo2()
+            this.requestInfo3()
         },
         methods: {
             //班组---我的任务
@@ -149,6 +150,30 @@
                 vm.$http.post('appMyWork/getTeamWork', {}).then(res => {
                     if (res.code == 200) {
                         vm.teamData = res.data
+                        // //    统计图
+                        // let _main = res.data.maintainCountNum.replace('%', '') * 1
+                        // let _repair = res.data.repairCountNum.replace('%', '') * 1
+                        // vm.options.series[0].data = [{
+                        //     value: res.data.maintainCount,
+                        //     name: '保养任务'
+                        // }, {
+                        //     value: res.data.repairCount,
+                        //     name: '维修任务'
+                        // }
+                        // ]
+                        // vm.options.graphic.style.text = '共计' + res.data.total
+                        // vm.drawLine()
+                    }
+
+                })
+            },
+            requestInfo3(){
+                let vm =this
+                vm.$http.post('appMyWork/getTaskStatistical',{
+
+                }).then(res=>{
+                    if (res.code == 200) {
+                        // vm.teamData = res.data
                         //    统计图
                         let _main = res.data.maintainCountNum.replace('%', '') * 1
                         let _repair = res.data.repairCountNum.replace('%', '') * 1
@@ -163,7 +188,6 @@
                         vm.options.graphic.style.text = '共计' + res.data.total
                         vm.drawLine()
                     }
-
                 })
             },
 

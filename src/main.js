@@ -38,18 +38,23 @@ Vue.prototype.$http = {
     post: (url, param, flag) => {
         if(localStorage.getItem('loginInfo')){
             var obj = JSON.parse(localStorage.getItem('loginInfo'))
-            param.unitCode = obj.unitCode
-            param.hospitalCode = obj.hospitalCode
-            param.userId = obj.id
-            // param.roleCode = JSON.parse(localStorage.getItem('ROLECODE')).roleCode
-            param.roleCode = obj.roleCode   //测试使用
+            param.unitCode = obj.userOffice[0].unitCode
+            param.hospitalCode = obj.userOffice[0].hospitalCode
+            param.userId = JSON.parse(localStorage.getItem('staffInfo')).staffId
+            param.roleCode = JSON.parse(localStorage.getItem('ROLECODE'))?JSON.parse(localStorage.getItem('ROLECODE')).roleCode:''
+            // param.roleCode = obj.roleCode   //测试使用
 
             param.userName = obj.name
         }
         let params=''
         if(param.flagkuayu){
             var formdata = new FormData();
-            for(var item in param){
+            //设备报修
+            if(item=='repairAttachmentUrl' && param[item].length){
+                param[item].forEach(function (i) {
+                    formdata.append(item, i);
+                })
+            }else{
                 formdata.append(item, param[item]||'');
             }
             params = formdata

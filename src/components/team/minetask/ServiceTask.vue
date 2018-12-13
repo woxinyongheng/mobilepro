@@ -1,9 +1,9 @@
 <template>
     <div class="servicetask">
-        <x-header  style="background-color:#2CC7C5;">维修任务</x-header>
+        <x-header  style="background-color:#2CC7C5;" :left-options="{preventGoBack:true}"  @on-click-back="back">维修任务</x-header>
         <tab bar-active-color="#38C7C4">
-            <tab-item active-class="active" selected @on-item-click="onItemClick('0')">未开始</tab-item>
-            <tab-item active-class="active"  @on-item-click="onItemClick('1')">已挂单</tab-item>
+            <tab-item active-class="active" selected @on-item-click="onItemClick('1')">未开始</tab-item>
+            <tab-item active-class="active"  @on-item-click="onItemClick('2')">已挂单</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
         </tab>
         <div class="content" @scroll="scrollAjax">
@@ -34,7 +34,7 @@
                 listData:[],
                 state:'0',
                 scroll:false,
-                type:'0'
+                type:'1'
             }
         },
         mounted(){
@@ -42,6 +42,9 @@
             this.requestList()
         },
         methods:{
+            back(){
+                this.$router.push('/index')
+            },
             toInfoHandle(item){
                 this.$router.push('/ServiceInfo/'+item.id)
                 sessionStorage.setItem(item.id,JSON.stringify(item))

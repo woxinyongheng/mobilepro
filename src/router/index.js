@@ -111,7 +111,7 @@ export default new Router({
           name:'TServiceInfo',
           component:TServiceInfo
       },{
-          path:'/MainInfo/:id',
+          path:'/MainInfo/:id/:type',
           name:'MainInfo',
           component:MainInfo
       },{//RepairInfo

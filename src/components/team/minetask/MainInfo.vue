@@ -58,13 +58,13 @@
                             <span>维保单位:</span><span>{{dataInfo.taskInfo.maintenanceCompany}}</span>
                         </li>
                         <li>
-                            <span>联系人:</span><span>{{dataInfo.taskInfo.maintain_person_name}}</span>
+                            <span>联系人:</span><span>{{dataInfo.taskInfo.maintenancePersonName}}</span>
                         </li>
                         <li>
-                            <span>联系电话:</span><span>{{dataInfo.taskInfo.maintain_person_phone}}</span>
+                            <span>联系电话:</span><span>{{dataInfo.taskInfo.maintenancePersonPhone}}</span>
                         </li>
                         <li>
-                            <span>规定时间:</span><span>{{dataInfo.taskInfo.maintain_time}}</span>
+                            <span>规定时间:</span><span>{{dataInfo.taskInfo.stipulateTime}}</span>
                         </li>
                     </ul>
                 </div>
@@ -72,7 +72,7 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.assignInfo && dataInfo.assignInfo.assignTime">
                 <p class="title">
                     派工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
@@ -81,13 +81,13 @@
                     <hr class="hr">
                     <ul v-if="dataInfo">
                         <li>
-                            <span>派工时间:</span><span>{{dataInfo.assignInfo.assign_time}}</span>
+                            <span>派工时间:</span><span>{{dataInfo.assignInfo.assignTime}}</span>
                         </li>
                         <li>
-                            <span>派工人:</span><span>{{dataInfo.assignInfo.assign_person_name}}</span>
+                            <span>派工人:</span><span>{{dataInfo.assignInfo.assignPersonName}}</span>
                         </li>
                         <li>
-                            <span>执行人:</span><span>{{dataInfo.assignInfo.implement_person_name}}</span>
+                            <span>执行人:</span><span>{{dataInfo.assignInfo.implementPersonName}}</span>
                         </li>
                     </ul>
                 </div>
@@ -95,7 +95,7 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.paymentInfo && dataInfo.paymentInfo.paymentTime">
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
@@ -104,10 +104,10 @@
                     <hr class="hr">
                     <ul v-if="dataInfo">
                         <li>
-                            <span>挂单时间:</span><span>{{dataInfo.paymentInfo.payment_time}}</span>
+                            <span>挂单时间:</span><span>{{dataInfo.paymentInfo.paymentTime}}</span>
                         </li>
                         <li>
-                            <span>挂单原因:</span><span>{{dataInfo.paymentInfo.payment_cause}}</span>
+                            <span>挂单原因:</span><span>{{dataInfo.paymentInfo.paymentCause}}</span>
                         </li>
                         <li>
                             <span>其他说明:</span><span>{{dataInfo.paymentInfo.otherExplain}}</span>
@@ -118,7 +118,7 @@
             </div>
 
 
-            <div class="card orther">
+            <div class="card orther" v-if="dataInfo.completionInfo && dataInfo.completionInfo.maintainTime">
                 <p class="title">
                     完工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
@@ -127,26 +127,26 @@
                     <hr class="hr">
                     <ul v-if="dataInfo">
                         <li>
-                            <span>完工时间:</span><span>{{dataInfo.completionInfo.maintain_time}}</span>
+                            <span>完工时间:</span><span>{{dataInfo.completionInfo.maintainTime}}</span>
                         </li>
                         <li>
-                            <span>保养人:</span><span>{{dataInfo.completionInfo.maintain_person_name}}</span>
+                            <span>保养人:</span><span>{{dataInfo.completionInfo.maintainPersonName}}</span>
                         </li>
                         <li class="liborder">
-                            <span>联系电话:</span><span>{{dataInfo.completionInfo.maintain_person_phone}}</span>
+                            <span>联系电话:</span><span>{{dataInfo.completionInfo.maintainPersonPhone}}</span>
                         </li>
                         <li class="liborder">
                             <span>保养说明:</span>
-                            <p class="text">{{dataInfo.completionInfo.maintain_explain}}</p>
+                            <p class="text">{{dataInfo.completionInfo.maintainExplain}}</p>
                             <p class="voice">
-                                <audio v-if="dataInfo.completionInfo.repair_content_attachment_url" class="voiceitem" :src="dataInfo.completionInfo.repair_content_attachment_url" controls="controls"></audio>
+                                <audio v-if="dataInfo.completionInfo.repairContentAttachmentUrl" class="voiceitem" :src="dataInfo.completionInfo.repairContentAttachmentUrl" controls="controls"></audio>
 
                             </p>
                         </li>
                         <li>
                             <span>相关附件:</span>
-                            <p class="img" v-if="dataInfo.completionInfo.repair_attachment_url">
-                                <img v-if="item in dataInfo.completionInfo.repair_attachment_url" :src="item" alt="">
+                            <p class="img" v-if="dataInfo.completionInfo.repairAttachmentUrl">
+                                <img v-if="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -175,9 +175,9 @@
 
             </div>
 
-            <div class="buttonbox" v-if="dataInfo.state==0 || dataInfo.state==1 ">
-                <p v-if="dataInfo.state==0 " @click="paymentHandle">挂单</p>
-                <p v-if="dataInfo.state==1" @click="$router.push('/MainTask')">取消</p>
+            <div class="buttonbox" v-if="$route.params.type==2 || $route.params.type==1 ">
+                <p v-if="$route.params.type==2 " @click="paymentHandle">挂单</p>
+                <p v-if="$route.params.type==1" @click="$router.push('/MainTask')">取消</p>
                 <p @click="selectPerson" >保养</p>
             </div>
             <div>
@@ -245,7 +245,9 @@
             },
             //    指派
             selectPerson(){
-                vm.$router.push('/Maintain/'+vm.$route.params.id)
+                let vm =this
+                sessionStorage.setItem(this.$route.params.id,JSON.stringify(vm.dataInfo.assetsInfo))
+                this.$router.push('/Maintain/'+this.$route.params.id)
             },
             requestInfo(){
                 let vm =this

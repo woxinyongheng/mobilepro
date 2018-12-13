@@ -215,7 +215,7 @@
         },
         mounted(){
             let vm =this
-            this.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
+            // this.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
             this.requestInfo()
         },
         methods:{
@@ -223,7 +223,7 @@
             onConfirm(){
                 let vm =this
                 vm.$http.post('appMyWork/claimWorkOrderByStaffId',{
-                    repairId:vm.$route.params.id
+                    repairId:vm.dataInfo.id
                 }).then(res=>{
                     if(res.code==200){
                         vm.$vux.toast.show({
@@ -237,15 +237,17 @@
             //    指派
             selectPerson(){
                 let vm =this
+                sessionStorage.setItem(vm.dataInfo.repairCode,JSON.stringify(vm.dataInfo))
                 this.$router.push('/selectPerson/weixiu/'+vm.dataInfo.repairCode)
             },
             requestInfo(){
                 let vm =this
-                vm.$http.post('equipmentListController/getRepairDetailById',{
+                vm.$http.post('Apprepaircontroller/getRepairDetailById',{
                     id:vm.$route.params.id
                 }).then(res=>{
                     if(res.code==200){
                         vm.dataInfo = res.data.repair
+                        vm.deviceInfo = res.data.view
                     }
                 })
             }

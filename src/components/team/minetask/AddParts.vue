@@ -23,7 +23,7 @@
             <div class="maskinfo" @click.stop="">
                 <x-input title="配件名称"  text-align="right" v-model="selectName" disabled></x-input>
                 <x-number title="配件数量" align="right" v-model="numberValue" button-style="round" :min="1" :max="10000"></x-number>
-                <x-input title="配件金额"  text-align="right" v-model="moneyValue" placeholder="请输入金额"></x-input>
+                <x-input title="配件金额"  text-align="right" v-model="moneyValue" placeholder="请输入金额" type="number"></x-input>
                 <div class="buttonbox">
                     <p @click="$router.back()">取消</p>
                     <p @click="srue">确定</p>

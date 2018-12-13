@@ -1,7 +1,7 @@
 <template>
     <div class="maintain">
         <x-header  style="background-color:#2CC7C5;">保养登记</x-header>
-        <div class="contentbox">
+        <div class="contentbox" v-if="dataInfo">
             <div class="banner">
                 <div class="title"><span><span>{{dataInfo.classifyName+'-'+dataInfo.assetsName}}</span></span>
                 </div>
@@ -116,7 +116,7 @@
                 photoArr:[],
                 urlArr:[],
                 workList:[],
-                ranlingshow:false
+                ranlingshow:false,
             }
         },
         mounted(){
@@ -125,9 +125,11 @@
         },
         methods:{
             selectMain(i,num){
+                let vm =this
                 let obj = this.workList[i]
                 obj.state=num
-                this.workList.splice(i,1,obj)
+                // this.workList.splice(i,1,obj)
+                vm.$set(vm.workList,i, obj)
             },
             sureSubmit(){
                 let vm =this
@@ -169,7 +171,7 @@
                     id:vm.$route.params.id
                 }).then(res=>{
                     if(res.code==200){
-                        vm.dataInfo = res.data.view
+                        vm.dataInfo = res.data.assetsInfo
                     }
                 })
             },

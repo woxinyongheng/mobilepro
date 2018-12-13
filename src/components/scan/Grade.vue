@@ -155,7 +155,7 @@
                 let vm =this
                 vm.$http.post('equipmentListController/equipmentRepair',{
                     createPersonName:JSON.parse(localStorage.getItem('loginInfo')).name,
-                    createPersonCode:JSON.parse(localStorage.getItem('loginInfo')).id,
+                    createPersonCode:JSON.parse(localStorage.getItem('staffInfo')).staffId,
                     createPersonPhone:JSON.parse(localStorage.getItem('loginInfo')).phone,
                     reportTime:vm.value1,
                     reportPersonCode: vm.username ==JSON.parse(localStorage.getItem('loginInfo')).name ? JSON.parse(localStorage.getItem('loginInfo')).id:'',

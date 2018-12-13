@@ -19,22 +19,18 @@ export default {
       //worker teamleader
       requestColeLode(){
           let vm =this
-          if(!JSON.parse(localStorage.getItem('loginInfo')) || !JSON.parse(localStorage.getItem('loginInfo')).unitCode || !JSON.parse(localStorage.getItem('loginInfo')).hospitalCode || !JSON.parse(localStorage.getItem('loginInfo')).id){
-              localStorage.setItem('prevLinkUrl',location.href)
-              location.href = __PATH.LOGOUT
-              return
-          }
           if (!sessionStorage.getItem('ROLECODE') && localStorage.getItem('isLogin') == '1') {
               vm.$http.post(__PATH.FULLPATH + 'userControl/findRoleCodeByUserCode', {
-                  unitCode: JSON.parse(localStorage.getItem('loginInfo')).unitCode,
-                  hospitalCode: JSON.parse(localStorage.getItem('loginInfo')).hospitalCode,
-                  userId: JSON.parse(localStorage.getItem('loginInfo')).id
+                  unitCode: JSON.parse(localStorage.getItem('loginInfo')).userOffice[0].unitCode,
+                  hospitalCode: JSON.parse(localStorage.getItem('loginInfo')).userOffice[0].hospitalCode,
+                  userId: JSON.parse(localStorage.getItem('staffInfo')).staffId
               }).then(res => {
                   if(res.code==200){
                       localStorage.setItem('ROLECODE',JSON.stringify(res.data))
                       vm.show=true
 
                   }else{
+                      debugger
                       localStorage.setItem('prevLinkUrl',location.href)
                       location.href = __PATH.LOGOUT
                       return

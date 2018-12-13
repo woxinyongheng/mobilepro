@@ -1,8 +1,8 @@
 <template>
     <div class="maintask">
-        <x-header  style="background-color:#2CC7C5;">保养任务</x-header>
+        <x-header  style="background-color:#2CC7C5;" :left-options="{preventGoBack:true}"  @on-click-back="back">保养任务</x-header>
         <tab bar-active-color="#38C7C4">
-            <tab-item active-class="active" selected @on-item-click="onItemClick('0')">未开始</tab-item>
+            <tab-item active-class="active" selected @on-item-click="onItemClick('2')">未开始</tab-item>
             <tab-item active-class="active"  @on-item-click="onItemClick('1')">已挂单</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick('3')">已完成</tab-item>
             <tab-item active-class="active" @on-item-click="onItemClick('over')">已超时</tab-item>
@@ -33,11 +33,11 @@
               currentPage:1,
               pageSize:10,
               total:0,
-              state:'0',
+              state:'2',
               overTime:'0',
               listData:[],
               scroll:false,
-              type:'0'
+              type:'2'
 
           }
         },
@@ -45,6 +45,9 @@
           this.requestList()
         },
         methods:{
+            back(){
+                this.$router.push('/index')
+            },
             onItemClick(str){
                 if(str=='over'){
                     this.overTime='1'
@@ -75,7 +78,7 @@
               })
             },
             toInfoHandle(item){
-                this.$router.push('/MainInfo/'+item.id)
+                this.$router.push('/MainInfo/'+item.id+'/'+this.state)
                 sessionStorage.setItem(item.id,JSON.stringify(item))
 
             },

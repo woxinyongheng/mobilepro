@@ -2,7 +2,7 @@
     <div class="card" @click="toInfoHandle">
         <div class="title">
             <span class="stabun">{{item.maintainType==1?'维保':'质保'}}</span>任务编号: <span>{{item.maintainCode}}</span>
-            <span class="status" v-if="type==0" :class="type==0?'error':''">未开始</span>
+            <span class="status" v-if="type==2" :class="type==0?'error':''">未开始</span>
             <span class="status" v-if="type==1" :class="type==1?'error':''">已挂单</span>
             <span class="status" v-if="type==3" :class="type==3?'error':''">已完成</span>
             <span class="status" v-if="type=='over'" :class="type==3?'error':''">已超时</span>

@@ -41,9 +41,17 @@
                     按住说话
                 </p>
                 <p v-if="localId" class="voicebox">
-                    <audio  class="voiceitem" :src="localId" controls="controls"></audio>
-                    <span @click="localId=''"><icon type="cancel" class="icon"></icon></span>
+                    <span class="playvoice" @click="playVoice">
+                        <img class="vioicimg" src="../../../../static/image/vioictime.png" alt="">
+                        <span>播放语音</span>
+                    </span>
+                    <!--<audio  class="voiceitem" :src="localId" controls="controls"></audio>-->
+                    <span @click="clearVoice"><icon type="cancel" class="icon"></icon></span>
                 </p>
+                <!--<p v-if="localId" class="voicebox">-->
+                    <!--<audio  class="voiceitem" :src="localId" controls="controls"></audio>-->
+                    <!--<span @click="localId=''"><icon type="cancel" class="icon"></icon></span>-->
+                <!--</p>-->
                 <div class="imgbox">
                     <p>相关附件</p>
                     <div class="list">
@@ -74,17 +82,20 @@
                         </span>
                     </p>
                     <group style="font-size: 0.14rem">
-                        <x-textarea  v-model="item.content" placeholder="" :show-counter="false" :rows="3"></x-textarea>
+                        <x-textarea  v-model="item.remarks" placeholder="请输入备注信息" :show-counter="false" :rows="3"></x-textarea>
                     </group>
                 </div>
             </div>
 
-
-
-            <div class="sure">
-                <p class="button" @click="sureSubmit">确认提交</p>
-
+            <div class="buttonbox">
+                <p  @click="cancle">取消</p>
+                <p  @click="sureSubmit">确定</p>
             </div>
+
+            <!--<div class="sure">-->
+                <!--<p class="button" @click="sureSubmit">确认提交</p>-->
+
+            <!--</div>-->
             <div>
                 <confirm v-model="ranlingshow"
                          title="提示"
@@ -124,6 +135,9 @@
             this.requestList()
         },
         methods:{
+            cancle(){
+              this.$router.push('/MainTask')
+            },
             selectMain(i,num){
                 let vm =this
                 let obj = this.workList[i]
@@ -229,6 +243,23 @@
                         alert(JSON.stringify(res));
                     }
                 });
+            },
+            playVoice(){
+                let vm =this
+                wx.playVoice({
+                    localId: vm.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+                    success:function(){
+                        // alert('成功');
+                    },
+                    fail:function() {
+                        // alert('失败');
+                    }
+                });
+            },
+            clearVoice(){
+                let vm =this
+                wx.pauseVoice()
+                vm.localId=''
             },
 
         },
@@ -441,6 +472,27 @@
             .surebutton{
                 background:rgba(56,199,196,0.34);
 
+            }
+        }
+        .buttonbox{
+            background-color: #fff;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            margin-top: 0.2rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            p{
+                display: inline-block;
+                border-radius: 5px;
+                width: 40%;
+                height: 0.35rem;
+                line-height: 0.35rem;
+                color: #ffffff;
+                font-weight: 500;
+                font-size: 0.16rem;
+                background-color: #38C7C4;
+                text-align: center;
             }
         }
     }

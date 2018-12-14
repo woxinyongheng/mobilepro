@@ -87,7 +87,7 @@ export default new Router({
           name:'TServiceTask',
           component:TServiceTask
       },{
-        path:'/ServiceInfo/:id',
+        path:'/ServiceInfo/:id/:type',
           name:'ServiceInfo',
           component:ServiceInfo
       },{
@@ -107,7 +107,7 @@ export default new Router({
           name:'SelectPerson',
           component:SelectPerson
       },{
-          path:'/TServiceInfo/:id',
+          path:'/TServiceInfo/:id/:type',
           name:'TServiceInfo',
           component:TServiceInfo
       },{

@@ -75,7 +75,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state!=0">
+            <div class="card orther" v-if="$route.params.type!=0">
                 <p class="title">
                     派工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
@@ -98,7 +98,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state==2 || deviceInfo.state==3">
+            <div class="card orther" v-if="$route.params.type==2 || $route.params.type==3">
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
@@ -121,7 +121,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state==3">
+            <div class="card orther" v-if="$route.params.type==3">
                 <p class="title">
                     维修信息
                     <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
@@ -178,9 +178,9 @@
 
 
 
-            <div class="buttonbox" v-if="deviceInfo.state==0 && roleType">
+            <div class="buttonbox" v-if="$route.params.type==0 && roleType">
                 <p @click="ranlingshow=true">认领</p>
-                <p @click="selectPerson">指派</p>
+                <p @click="selectPerson" v-if="zhipaiShow">指派</p>
             </div>
             <div>
                 <confirm v-model="ranlingshow"
@@ -209,6 +209,7 @@
                 show3:true,
                 show4:true,
                 show5:true,
+                zhipaiShow:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader',
                 roleType:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='worker'
 
             }
@@ -238,7 +239,7 @@
             selectPerson(){
                 let vm =this
                 sessionStorage.setItem(vm.dataInfo.repairCode,JSON.stringify(vm.dataInfo))
-                this.$router.push('/selectPerson/weixiu/'+vm.dataInfo.repairCode)
+                this.$router.push('/selectPerson/weixiu/'+vm.dataInfo.id)
             },
             requestInfo(){
                 let vm =this

@@ -61,7 +61,8 @@
             requestWechart() {
                 let vm = this
                 if (!sessionStorage.getItem('WECHART')) {
-                    vm.$http.get(__PATH.WECHART + 'accessToken/getSignature?localUrl=' + location.href).then(res => {
+                    let _url = __PATH.WECHART + 'accessToken/getSignature?'+'hospitalCode='+JSON.parse(localStorage.getItem('loginInfo')).userOffice[0].hospitalCode +'&localUrl=' + location.href
+                    vm.$http.get(_url).then(res => {
                         if (res.code == 200) {
                             console.log('请求成功')
                             wx.config({
@@ -70,7 +71,7 @@
                                 timestamp: res.data.timestamp, // 必填，生成签名的时间戳
                                 nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
                                 signature: res.data.signature, // 必填，签名，见附录1
-                                jsApiList: ['scanQRCode', 'startRecord', 'stopRecord']
+                                jsApiList: ['scanQRCode', 'startRecord', 'stopRecord','playVoice','pauseVoice']
                             });
                             console.log('配置')
                             wx.ready(function () {
@@ -79,6 +80,8 @@
                                         'menuItem:scanQRCode',
                                         'menuItem:startRecord',
                                         'menuItem:stopRecord',
+                                        'menuItem:playVoice',
+                                        'menuItem:pauseVoice',
                                     ],
                                     success: function (res) {
                                         console.log('配置成功')

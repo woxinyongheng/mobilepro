@@ -78,7 +78,7 @@
               })
             },
             toInfoHandle(item){
-                this.$router.push('/MainInfo/'+item.id+'/'+this.state)
+                this.$router.push('/MainInfo/'+item.id+'/'+item.state)
                 sessionStorage.setItem(item.id,JSON.stringify(item))
 
             },

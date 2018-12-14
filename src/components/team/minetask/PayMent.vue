@@ -87,7 +87,8 @@
             requestList(){
                 let vm =this
                 vm.$http.post('maintainPlan/getDictValue',{
-                    mark:6
+                    mark:6,
+                    dictType:'hang_reason'
                 }).then(res=>{
                     if(res.code==200){
                         let arr=[]

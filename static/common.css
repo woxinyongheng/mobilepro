@@ -117,3 +117,25 @@ textarea{
   color: #999999 !important;
 
 }
+.playvoice{
+  display: inline-block;
+  color: #ffffff;
+  background-color: #38C7C4;
+  height: 0.4rem;
+  width: 70%;
+  line-height: 0.4rem;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0.14rem auto;
+  position: relative;
+}
+.vioicimg{
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  left: 0.12rem;
+  top: 0.1rem;
+}
+.voicetime{
+
+}

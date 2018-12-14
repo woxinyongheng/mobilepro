@@ -50,12 +50,16 @@ Vue.prototype.$http = {
         if(param.flagkuayu){
             var formdata = new FormData();
             //设备报修
-            if(item=='repairAttachmentUrl' && param[item].length){
-                param[item].forEach(function (i) {
-                    formdata.append(item, i);
-                })
-            }else{
-                formdata.append(item, param[item]||'');
+            for(var item in param){
+                //设备报修
+                if(item=='repairAttachmentUrl' && param[item].length){
+                    param[item].forEach(function (i) {
+                        formdata.append(item, i);
+                    })
+                }else{
+                    formdata.append(item, param[item]||'');
+
+                }
             }
             params = formdata
         }else{

@@ -75,7 +75,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state!=0">
+            <div class="card orther">
                 <p class="title">
                     派工信息
                     <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
@@ -98,7 +98,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state==2 || deviceInfo.state==3">
+            <div class="card orther" v-if="$route.params.type==2 || $route.params.type==3">
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
@@ -121,7 +121,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo.state==3">
+            <div class="card orther" v-if="$route.params.type==3">
                 <p class="title">
                     维修信息
                     <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
@@ -178,9 +178,9 @@
 
 
 
-            <div class="buttonbox" v-if="deviceInfo.state==0 || deviceInfo.state==1">
-                <p v-if="deviceInfo.state==0" @click="paymentHandle">挂单</p>
-                <p v-if="deviceInfo.state==1" @click="$router.push('/ServiceTask')">取消</p>
+            <div class="buttonbox" v-if="$route.params.type==1 || $route.params.type==2">
+                <p v-if="$route.params.type==1" @click="paymentHandle">挂单</p>
+                <p v-if="$route.params.type==2" @click="$router.push('/ServiceTask')">取消</p>
 
                 <p @click="selectPerson">维修</p>
             </div>
@@ -242,6 +242,7 @@
             //    维修
             selectPerson(){
                 let vm =this
+                sessionStorage.setItem(vm.$route.params.id,JSON.stringify(vm.deviceInfo))
                 vm.$router.push('/Repair/'+vm.$route.params.id)
             },
             requestInfo(){

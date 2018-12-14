@@ -88,8 +88,8 @@
                 this.requestList()
             },
             toInfoHandle(item){
-                this.$router.push('/TServiceInfo/'+item.id)
-                sessionStorage.setItem(item.id,JSON.stringify(item))
+                this.$router.push('/TServiceInfo/'+item.id+'/'+item.state)
+                // sessionStorage.setItem(item.id,JSON.stringify(item))
             },
             //    滚动处理
             scrollAjax(e) {

@@ -40,8 +40,12 @@
                     按住说话
                 </p>
                 <p v-if="localId" class="voicebox">
-                    <audio  class="voiceitem" :src="localId" controls="controls"></audio>
-                    <span @click="localId=''"><icon type="cancel" class="icon"></icon></span>
+                    <span class="playvoice" @click="playVoice">
+                        <img class="vioicimg" src="../../../static/image/vioictime.png" alt="">
+                        <span>播放语音</span>
+                    </span>
+                    <!--<audio  class="voiceitem" :src="localId" controls="controls"></audio>-->
+                    <span @click="clearVoice"><icon type="cancel" class="icon"></icon></span>
                 </p>
                 <div class="imgbox">
                     <p>相关附件</p>
@@ -87,7 +91,9 @@
                 localId:'',
                 photoArr:[],
                 urlArr:[],
-                repairExplain:''
+                repairExplain:'',
+                time:0,
+                commonvoice:'common'
 
 
             }
@@ -124,6 +130,7 @@
                 wx.startRecord({
                     success: function(){
                         localStorage.rainAllowRecord = 'true';
+                        vm.commonvoice='start'
                     },
                     cancel: function () {
                         alert('用户拒绝授权录音');
@@ -141,6 +148,7 @@
                 }
                 wx.stopRecord({
                     success: function (res) {
+                        vm.commonvoice='common'
                         vm.localId = res.localId;
                     },
                     fail: function (res) {
@@ -148,10 +156,25 @@
                     }
                 });
             },
+            playVoice(){
+                let vm =this
+                wx.playVoice({
+                    localId: vm.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+                    success:function(){
+                        // alert('成功');
+                    },
+                    fail:function() {
+                        // alert('失败');
+                    }
+                });
+            },
+            clearVoice(){
+              let vm =this
+                wx.pauseVoice()
+                vm.localId=''
+            },
             //提交
             sureSubmit(){
-
-                debugger
                 let vm =this
                 vm.$http.post('equipmentListController/equipmentRepair',{
                     createPersonName:JSON.parse(localStorage.getItem('loginInfo')).name,
@@ -172,14 +195,17 @@
                             text:res.message,
                             time:2000
                         })
-                        vm.$router.push('/index')
+                        setTimeout(function () {
+                            vm.$router.push('/index')
+                        },200)
+
                     }
                 })
             }
         },
         components:{
             XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon,upload
-        }
+        },
     }
 </script>
 

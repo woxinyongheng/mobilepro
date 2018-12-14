@@ -32,7 +32,7 @@
                 pageSize:10,
                 total:0,
                 listData:[],
-                state:'0',
+                state:'1',
                 scroll:false,
                 type:'1'
             }
@@ -46,7 +46,7 @@
                 this.$router.push('/index')
             },
             toInfoHandle(item){
-                this.$router.push('/ServiceInfo/'+item.id)
+                this.$router.push('/ServiceInfo/'+item.id+'/'+item.state)
                 sessionStorage.setItem(item.id,JSON.stringify(item))
             },
             onItemClick(str){

@@ -55,9 +55,17 @@
                     按住说话
                 </p>
                 <p v-if="localId" class="voicebox">
-                    <audio  class="voiceitem" :src="localId" controls="controls"></audio>
-                    <span @click="localId=''"><icon type="cancel" class="icon"></icon></span>
+                    <span class="playvoice" @click="playVoice">
+                        <img class="vioicimg" src="../../../../static/image/vioictime.png" alt="">
+                        <span>播放语音</span>
+                    </span>
+                    <!--<audio  class="voiceitem" :src="localId" controls="controls"></audio>-->
+                    <span @click="clearVoice"><icon type="cancel" class="icon"></icon></span>
                 </p>
+                <!--<p v-if="localId" class="voicebox">-->
+                    <!--<audio  class="voiceitem" :src="localId" controls="controls"></audio>-->
+                    <!--<span @click="localId=''"><icon type="cancel" class="icon"></icon></span>-->
+                <!--</p>-->
                 <div class="imgbox">
                     <p>相关附件</p>
                     <div class="list">
@@ -69,27 +77,36 @@
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="sure">
-                <p class="button" @click="sureSubmit">确认提交</p>
+            <div class="buttonbox">
+                <p  @click="cancle">取消</p>
+                <p  @click="sureSubmit">确定</p>
 
             </div>
-
+            <!--<div class="sure">-->
+                <!--<p class="button" @click="sureSubmit">确认提交</p>-->
+            <!--</div>-->
+            <div>
+                <confirm v-model="ranlingshow"
+                         title="提示"
+                         @on-confirm="onConfirm">
+                    <p style="text-align:center;">确定提交吗，提交后无法进行修改</p>
+                </confirm>
+            </div>
         </div>
+
 
     </div>
 </template>
 
 <script>
-    import { XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon} from 'vux'
+    import { XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon,Confirm} from 'vux'
     import upload from '@/components/common/UpLoad'
     export default {
         name: "Repair",
         data:function(){
             return{
                 deviceInfo:'',
+                ranlingshow:false,
                 username:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).username:JSON.parse(localStorage.getItem('loginInfo')).name,
                 phone:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).phone :JSON.parse(localStorage.getItem('loginInfo')).phone,
                 repairreason:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).repairreason :'',
@@ -114,6 +131,9 @@
 
         },
         methods:{
+            cancle(){
+              this.$router.push('/ServiceTask')
+            },
             deletePart(i){
                 this.partArr.splice(i,1)
             },
@@ -122,7 +142,7 @@
                 sessionStorage.setItem('weixiudata',JSON.stringify(vm._data))
                 this.$router.push('/AddParts')
             },
-            sureSubmit(){
+            onConfirm(){
                 let vm = this
                 if(!vm.username){
                     vm.$vux.toast.show({
@@ -174,6 +194,11 @@
                     }
                 })
             },
+            sureSubmit(){
+                this.ranlingshow = true
+                // return
+
+            },
             //图片
             uploadHandle(file,url){
                 this.photoArr.push(file)
@@ -214,9 +239,26 @@
                     }
                 });
             },
+            playVoice(){
+                let vm =this
+                wx.playVoice({
+                    localId: vm.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+                    success:function(){
+                        // alert('成功');
+                    },
+                    fail:function() {
+                        // alert('失败');
+                    }
+                });
+            },
+            clearVoice(){
+                let vm =this
+                wx.pauseVoice()
+                vm.localId=''
+            },
         },
         components:{
-            XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon,upload
+            XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon,upload,Confirm
         },
         watch:{
             servicePay:function () {
@@ -431,6 +473,27 @@
         .surebutton{
             background:rgba(56,199,196,0.34);
 
+        }
+    }
+    .buttonbox{
+        background-color: #fff;
+        height: 0.6rem;
+        line-height: 0.6rem;
+        margin-top: 0.2rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        p{
+            display: inline-block;
+            border-radius: 5px;
+            width: 40%;
+            height: 0.35rem;
+            line-height: 0.35rem;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.16rem;
+            background-color: #38C7C4;
+            text-align: center;
         }
     }
 }

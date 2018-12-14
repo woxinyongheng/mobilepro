@@ -2,8 +2,8 @@
     <div class="card" @click="toInfoHandle">
         <div class="title">
             任务编号: <span>{{item.repairCode}}</span>
-            <span v-if="item.state==0" class="status" :class="type==0?'error':''">未开始</span>
-            <span v-if="item.state==1" class="status" :class="type==1?'error':''">已挂单</span>
+            <span v-if="item.state==1" class="status" :class="type==0?'error':''">未开始</span>
+            <span v-if="item.state==2" class="status" :class="type==1?'error':''">已挂单</span>
             <span v-if="item.state==3" class="status" :class="type==1?'error':''">已完成</span>
 
         </div>

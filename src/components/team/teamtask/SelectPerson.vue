@@ -160,7 +160,7 @@
     }
     .content{
         margin-top: -0.77em;
-        height: calc(100vh - 160px);
+        height: calc(100vh - 80px);
         overflow-y: scroll;
     }
     .buttonbox{

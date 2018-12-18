@@ -71,7 +71,7 @@
                                 timestamp: res.data.timestamp, // 必填，生成签名的时间戳
                                 nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
                                 signature: res.data.signature, // 必填，签名，见附录1
-                                jsApiList: ['scanQRCode', 'startRecord', 'stopRecord','playVoice','pauseVoice']
+                                jsApiList: ['scanQRCode', 'startRecord', 'stopRecord','playVoice','pauseVoice','uploadVoice']
                             });
                             console.log('配置')
                             wx.ready(function () {
@@ -82,6 +82,7 @@
                                         'menuItem:stopRecord',
                                         'menuItem:playVoice',
                                         'menuItem:pauseVoice',
+                                        'menuItem:uploadVoice',
                                     ],
                                     success: function (res) {
                                         console.log('配置成功')

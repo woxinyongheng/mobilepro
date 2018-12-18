@@ -7,7 +7,7 @@
                     <div class="searchbox">
                         <img src="../../../static/image/search.png" alt="">
                         <input type="text" placeholder="请输入设备编号" v-model="assetsCode">
-                        <span @click="requestList">搜索</span>
+                        <span @click="searchText">搜索</span>
                     </div>
                     <div class="buttonbox">
                         <p :class="!assetsTypeId?'active':''" @click="tyepeClick()">全部</p>
@@ -55,6 +55,9 @@
             this.requestList()
         },
         methods: {
+            searchText(){
+                this.requestList()
+            },
             tyepeClick(id) {
                 this.assetsTypeId = id
                 this.requestList()

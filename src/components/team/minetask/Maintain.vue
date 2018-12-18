@@ -34,7 +34,7 @@
             <div class="banner content">
                 <div class="title">保养信息</div>
                 <group style="font-size: 0.14rem">
-                    <x-textarea title="保养说明" v-model="repairExplain" placeholder="请输入维修说明" :show-counter="false" :rows="3"></x-textarea>
+                    <x-textarea title="保养说明" v-model="repairExplain" placeholder="请输入保养说明" :show-counter="false" :rows="3"></x-textarea>
                 </group>
                 <p class="voice" v-if="!localId"  @touchstart.stop.prevent="recordStart" @touchend.stop.prevent="recordEnd">
                     <img src="../../../../static/image/voice.png" alt="">
@@ -128,6 +128,7 @@
                 urlArr:[],
                 workList:[],
                 ranlingshow:false,
+                serverId:''
             }
         },
         mounted(){
@@ -168,6 +169,7 @@
                     maintainExplain:vm.repairExplain,
                     repairAttachmentUrl:vm.photoArr,
                     content:JSON.stringify(vm.workList),
+                    repairAttachmentUrl:vm.serverId,
                     flagkuayu:true
                 }).then(res=>{
                     if(res.code==200){
@@ -238,6 +240,14 @@
                 wx.stopRecord({
                     success: function (res) {
                         vm.localId = res.localId;
+                        wx.uploadVoice({
+                            localId: res.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                vm.serverId = res.serverId; // 返回音频的服务器端ID
+                                console.log(vm.serverId)
+                            }
+                        });
                     },
                     fail: function (res) {
                         alert(JSON.stringify(res));

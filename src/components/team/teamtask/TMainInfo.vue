@@ -166,7 +166,10 @@
                         <p class="plantitle">
                             <span>{{item.content}}</span>
                             <span class="right">
-                                <img src="../../../../static/image/select.png" alt="">完成
+                                <icon type="circle"  v-if="item.state==0"></icon>
+                                <icon type="success"  v-if="item.state==1"></icon>
+                                {{item.state==0?'未完成':'已完成'}}
+                                <!--<img src="../../../../static/image/select.png" alt="">完成-->
                             </span>
                         </p>
                         <p class="info">{{item.content}}</p>

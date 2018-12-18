@@ -13,13 +13,13 @@
         <div class="list">
             <ul>
                 <li>
-                    <span>任务名称：</span><span class="right">{{item.maintainItem}}</span>
+                    <span>保养项目：</span><span class="right">{{item.planTask}}</span>
                 </li>
                 <li>
                     <span>保养任务：</span><span class="right">{{item.maintainItem}}</span>
                 </li>
                 <li>
-                    <span>维保单位：</span><span class="right">{{item.company}}</span>
+                    <span>维保单位：</span><span class="right">{{item.maintenanceCompany}}</span>
                 </li>
                 <li>
                     <span>规定时间：</span><span class="right">{{item.requirementPlanTime}}</span>

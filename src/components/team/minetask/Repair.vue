@@ -116,7 +116,7 @@
                 repairPay:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).repairPay : '',
                 servicePay:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).servicePay : '',
 
-
+                serverId:'',
                 startTime:0,
                 endTime:0,
                 localId:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).localId :'',
@@ -180,7 +180,7 @@
                     servicePay:vm.servicePay,
                     repairPay:vm.repairPay,
                     repairFinishExplain:vm.repairExplain,
-                    finishContentAttachmentUrl:vm.localId,
+                    finishContentAttachmentUrl:vm.serverId,
                     finishAttachmentUrl:vm.photoArr,
                     flagkuayu:true
                 }).then(res=>{
@@ -233,6 +233,14 @@
                 wx.stopRecord({
                     success: function (res) {
                         vm.localId = res.localId;
+                        wx.uploadVoice({
+                            localId: res.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                vm.serverId = res.serverId; // 返回音频的服务器端ID
+                                console.log(vm.serverId)
+                            }
+                        });
                     },
                     fail: function (res) {
                         alert(JSON.stringify(res));

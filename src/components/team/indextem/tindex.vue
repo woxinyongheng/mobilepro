@@ -59,7 +59,7 @@
                 options: {
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                        formatter: "{b}: {c} ({d}%)"
                     },
                     //环形颜色
                     color: ['#38C7C4', '#FCB635'],

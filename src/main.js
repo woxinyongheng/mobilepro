@@ -52,7 +52,7 @@ Vue.prototype.$http = {
             //设备报修
             for(var item in param){
                 //设备报修
-                if(item=='repairAttachmentUrl' && param[item].length){
+                if((item=='repairAttachmentUrl' || item=='repairAttachmentUrl' || item=='finishAttachmentUrl') && param[item].length){
                     param[item].forEach(function (i) {
                         formdata.append(item, i);
                     })

@@ -93,7 +93,8 @@
                 urlArr:[],
                 repairExplain:'',
                 time:0,
-                commonvoice:'common'
+                commonvoice:'common',
+                serverId:''
 
 
             }
@@ -150,6 +151,14 @@
                     success: function (res) {
                         vm.commonvoice='common'
                         vm.localId = res.localId;
+                        wx.uploadVoice({
+                            localId: res.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                vm.serverId = res.serverId; // 返回音频的服务器端ID
+                                console.log(vm.serverId)
+                            }
+                        });
                     },
                     fail: function (res) {
                         alert(JSON.stringify(res));
@@ -185,7 +194,7 @@
                     reportPersonName:vm.username,
                     reportPersonPhone:vm.phone,
                     repairExplain:vm.repairExplain,
-                    repairContentAttachmentUrl:vm.localId,
+                    repairContentAttachmentUrl:vm.serverId,
                     repairAttachmentUrl:vm.photoArr,
                     equipmentId:vm.$route.params.id,
                     flagkuayu:true

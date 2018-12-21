@@ -51,8 +51,9 @@
             onItemClick(str){
                 if(str=='over'){
                     this.overTime='1'
+                    this.state=''
                 }else{
-                    this.overTime='0'
+                    this.overTime=''
                     this.state = str
                 }
                 this.type=str

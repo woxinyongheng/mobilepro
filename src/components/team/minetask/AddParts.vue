@@ -21,9 +21,12 @@
         </div>
         <div class="mask" v-if="showMask" @click="showMask=false">
             <div class="maskinfo" @click.stop="">
-                <x-input title="配件名称"  text-align="right" v-model="selectName" disabled></x-input>
-                <x-number title="配件数量" align="right" v-model="numberValue" button-style="round" :min="1" :max="10000"></x-number>
-                <x-input title="配件金额"  text-align="right" v-model="moneyValue" placeholder="请输入金额" type="number"></x-input>
+                <group>
+                    <x-input title="配件名称"  text-align="right" v-model="selectName" disabled></x-input>
+                    <x-number title="配件数量" align="right" v-model="numberValue" button-style="round" :min="1" :max="10000"></x-number>
+                    <x-input title="配件金额" class="moneyinput"  text-align="right" v-model="moneyValue" placeholder="请输入金额" type="number"></x-input>
+                </group>
+
                 <div class="buttonbox">
                     <p @click="$router.back()">取消</p>
                     <p @click="srue">确定</p>
@@ -55,6 +58,10 @@
         methods:{
             srue(){
                 let vm =this
+                let _val = document.querySelector('.moneyinput input').value*1
+                if(!vm.moneyValue){
+                    vm.moneyValue = _val
+                }
                 let obj ={}
                 // if(!vm.moneyValue){
                 //     vm.$vux.toast.show({

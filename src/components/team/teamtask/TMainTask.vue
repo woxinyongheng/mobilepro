@@ -70,9 +70,10 @@
             onItemClick(str){
                 if(str=='over'){
                     this.overTime=1
+                    this.state=''
                 }else{
                     this.state = str
-                    this.overTime=0
+                    this.overTime=''
                 }
                 this.type = str
                 this.requestList()

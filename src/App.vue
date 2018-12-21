@@ -30,7 +30,6 @@ export default {
                       vm.show=true
 
                   }else{
-                      debugger
                       localStorage.setItem('prevLinkUrl',location.href)
                       location.href = __PATH.LOGOUT
                       return

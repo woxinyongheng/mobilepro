@@ -137,7 +137,7 @@
                     border: none;
                     background-color: #EFEFF4;
                     height: 0.4rem;
-                    width: 90%;
+                    width: 80%;
                     font-size: 0.14rem;
                     color: #B2B2B2;
                 }

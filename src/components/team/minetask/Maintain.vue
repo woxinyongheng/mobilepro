@@ -167,9 +167,10 @@
                     id:vm.$route.params.id,
                     maintainPersonPhone:vm.phone,
                     maintainExplain:vm.repairExplain,
-                    repairAttachmentUrl:vm.photoArr,
+                    finishAttachmentUrl:vm.photoArr,
                     content:JSON.stringify(vm.workList),
                     repairAttachmentUrl:vm.serverId,
+                    appId:JSON.parse(sessionStorage.getItem('WECHARTDATA')).appId,
                     flagkuayu:true
                 }).then(res=>{
                     if(res.code==200){

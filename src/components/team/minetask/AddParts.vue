@@ -45,7 +45,7 @@
               selectCode:'',
               selectName:'',
               numberValue:1,
-              moneyValue:'',
+              moneyValue:0,
               showMask:false
           }
         },
@@ -56,14 +56,14 @@
             srue(){
                 let vm =this
                 let obj ={}
-                if(!vm.moneyValue){
-                    vm.$vux.toast.show({
-                        text:'请输入金额',
-                        time:2000,
-                        type:'warn'
-                    })
-                    return
-                }
+                // if(!vm.moneyValue){
+                //     vm.$vux.toast.show({
+                //         text:'请输入金额',
+                //         time:2000,
+                //         type:'warn'
+                //     })
+                //     return
+                // }
                 let _data = JSON.parse(sessionStorage.getItem('weixiudata'))
                 obj.dictLabel = vm.selectName
                 obj.dictCode = vm.selectCode

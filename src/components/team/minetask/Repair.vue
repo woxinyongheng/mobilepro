@@ -163,10 +163,12 @@
                 let _code = []
                 let _name =[]
                 let _num =[]
+                let _money = []
                 vm.partArr.forEach(function (item) {
                     _code.push(item.dictCode)
                     _name.push(item.dictLabel)
                     _num.push(item.num)
+                    _money.push(item.money)
                 })
                 vm.$http.post('appMyWork/completeWorkOrder',{
                     repairPersonName:vm.username,
@@ -176,11 +178,12 @@
                     partsCode:_code.join(','),
                     partsName:_name.join(','),
                     partsSum:_num.join(','),
-                    partsPay:vm.repairPay - vm.servicePay,
+                    partsPay:_money.join(','),
                     servicePay:vm.servicePay,
                     repairPay:vm.repairPay,
                     repairFinishExplain:vm.repairExplain,
                     finishContentAttachmentUrl:vm.serverId,
+                    appId:JSON.parse(sessionStorage.getItem('WECHARTDATA')).appId,
                     finishAttachmentUrl:vm.photoArr,
                     flagkuayu:true
                 }).then(res=>{

@@ -166,7 +166,7 @@
                         <p class="plantitle">
                             <span>{{item.content}}</span>
                             <span class="right">
-                               <icon type="circle"  v-if="item.state==0"></icon>
+                               <icon type="warn"  v-if="item.state==0"></icon>
                                 <icon type="success"  v-if="item.state==1"></icon>
                                 {{item.state==0?'未完成':'已完成'}}
                             </span>
@@ -195,7 +195,7 @@
 </template>
 
 <script>
-    import { XHeader,Confirm,TransferDomDirective as TransferDom} from 'vux'
+    import { Icon,XHeader,Confirm,TransferDomDirective as TransferDom} from 'vux'
 
     export default {
         name: "MainInfo",
@@ -274,7 +274,7 @@
         },
 
         components:{
-            XHeader,Confirm
+            XHeader,Confirm,Icon
         },
     }
 </script>

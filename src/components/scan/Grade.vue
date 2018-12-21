@@ -181,6 +181,7 @@
               let vm =this
                 wx.pauseVoice()
                 vm.localId=''
+                vm.serverId=''
             },
             //提交
             sureSubmit(){
@@ -194,9 +195,10 @@
                     reportPersonName:vm.username,
                     reportPersonPhone:vm.phone,
                     repairExplain:vm.repairExplain,
-                    repairContentAttachmentUrl:vm.serverId,
+                    cellerTape:vm.serverId,
                     repairAttachmentUrl:vm.photoArr,
                     equipmentId:vm.$route.params.id,
+                    appId:JSON.parse(sessionStorage.getItem('WECHARTDATA')).appId,
                     flagkuayu:true
                 }).then(res=>{
                     if(res.code==200){
@@ -308,15 +310,15 @@
             .voicebox{
                 text-align: center;
                 margin: 0.14rem 0;
-                position: relative;
+                /*position: relative;*/
                 .voiceitem{
                     width: 60%;
                 }
-                .icon{
-                    position: absolute;
-                    right: 0.14rem;
-                    top: 0.2rem;
-                }
+                /*.icon{*/
+                    /*position: absolute;*/
+                    /*right: 0.14rem;*/
+                    /*top: 0.2rem;*/
+                /*}*/
 
             }
         }

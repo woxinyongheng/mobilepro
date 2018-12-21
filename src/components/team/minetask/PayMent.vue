@@ -41,11 +41,12 @@
         },
         methods:{
             change(e){
+                debugger
                 this.paymentCause =e
             },
             sureSubmit(){
                 let vm =this
-                if(!vm.otherExplain){
+                if(!vm.paymentCause){
                     vm.$vux.toast.show({
                         text:'请选择挂单原因',
                         time:2000,
@@ -94,7 +95,7 @@
                         let arr=[]
                         res.data.forEach(function (item) {
                             let obj={}
-                            obj.key = item.dictValue
+                            obj.key = item.dictLabel
                             obj.value = item.dictLabel
                             arr.push(obj)
                         })

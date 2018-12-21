@@ -39,8 +39,7 @@
                 </p>
                 <group style="font-size: 0.14rem">
 
-
-                    <x-input title="其他支出"  text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>
+                    <x-input title="其他支出" class="moneyinput" :show-clear="false" text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>
                     <x-input title="维修总支出" disabled type="number" text-align="right" v-model="repairPay" placeholder=""></x-input>
                 </group>
             </div>
@@ -113,7 +112,7 @@
                 repairExplain:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).repairExplain:'',
 
                 partArr:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).partArr : [],
-                repairPay:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).repairPay : '',
+                repairPay:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).repairPay : '0',
                 servicePay:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).servicePay : '',
 
                 serverId:'',
@@ -127,15 +126,60 @@
         mounted(){
           let vm =this
             vm.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
-
+            document.querySelector('.moneyinput input').oninput = function(){
+                this.servicePay = document.querySelector('.moneyinput input').value*1
+                if(this.servicePay){
+                    if(this.partArr && this.partArr.length){
+                        let num =0
+                        this.partArr.forEach(function (item) {
+                            num += item.money*1
+                        })
+                        this.repairPay = num + this.servicePay*1
+                    }else{
+                        this.repairPay = this.servicePay*1
+                    }
+                }else{
+                    if(this.partArr &&  this.partArr.length){
+                        let num =0
+                        this.partArr.forEach(function (item) {
+                            num += item.money*1
+                        })
+                        this.repairPay = num
+                    }else{
+                        this.repairPay = this.servicePay*1
+                    }
+                }
+            }
 
         },
         methods:{
+
             cancle(){
               this.$router.push('/ServiceTask')
             },
             deletePart(i){
                 this.partArr.splice(i,1)
+                if(this.servicePay){
+                    if(this.partArr && this.partArr.length){
+                        let num =0
+                        this.partArr.forEach(function (item) {
+                            num += item.money*1
+                        })
+                        this.repairPay = num + this.servicePay*1
+                    }else{
+                        this.repairPay = this.servicePay*1
+                    }
+                }else{
+                    if(this.partArr &&  this.partArr.length){
+                        let num =0
+                        this.partArr.forEach(function (item) {
+                            num += item.money*1
+                        })
+                        this.repairPay = num
+                    }else{
+                        this.repairPay = this.servicePay*1
+                    }
+                }
             },
             addParts(){
                 let vm =this
@@ -290,6 +334,8 @@
                             num += item.money*1
                         })
                         this.repairPay = num
+                    }else{
+                        this.repairPay = this.servicePay*1
                     }
                 }
             }

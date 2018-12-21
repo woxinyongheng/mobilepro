@@ -98,7 +98,7 @@
             </div>
 
 
-            <div class="card orther" v-if="$route.params.type==2 || $route.params.type==3">
+            <div class="card orther" v-if="($route.params.type==2 || $route.params.type==3) && dataInfo.paymentTime">
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
@@ -140,7 +140,8 @@
                         </li>
                         <li>
                             <span>使用配件:</span>
-                            <p class="table" v-if="dataInfo.partsName"><span>{{dataInfo.partsName}}</span><span>✖{{dataInfo.partsSum}}</span><span></span></p>
+                            <p class="table" v-if="dataInfo.partsEmploy" v-for="item in dataInfo.partsEmploy"><span>{{item.partsName}}</span><span>✖{{item.partsSum}}</span><span>{{item.partsPay}}</span></p>
+
                             <!--<p class="table"><span>过滤管</span><span>✖2</span><span>435元</span></p>-->
 
                         </li>
@@ -376,13 +377,14 @@
                         }
                         .table{
 
-                            display: flex;
                             justify-content: space-around;
                             background:rgba(244,244,244,1);
                             border-radius:4px;
+                            span:nth-of-type(1){
+                                width: 40%;
+                            }
                             span{
                                 width:20%
-
                             }
                         }
                     }

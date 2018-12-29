@@ -6,7 +6,9 @@
                 <p class="title">
                     设备信息
                     <span class="stabun" v-if="dataInfo && dataInfo.assetsInfo">{{dataInfo.assetsInfo.equipmentState==0?'正常':(dataInfo.assetsInfo.equipmentState==1?'延期':'报废')}}</span>
-                    <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
+                    <img src="../../../../static/image/down.png" v-if="!show1" alt="" @click="show1=!show1">
+                    <img src="../../../../static/image/up.png" v-if="show1" alt="" @click="show1=!show1">
+
                 </p>
                 <div v-show="show1">
                     <hr class="hr">
@@ -37,7 +39,9 @@
             <div class="card orther">
                 <p class="title">
                     任务信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show2=!show2">
+                    <img src="../../../../static/image/down.png" v-if="!show2" alt="" @click="show2=!show2">
+                    <img src="../../../../static/image/up.png" v-if="show2" alt="" @click="show2=!show2">
+
                 </p>
                 <div v-show="show2">
                     <hr class="hr">
@@ -75,7 +79,9 @@
             <div class="card orther" v-if="deviceInfo && deviceInfo && deviceInfo.state!=0">
                 <p class="title">
                     派工信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
+                    <img src="../../../../static/image/down.png" v-if="!show3" alt="" @click="show3=!show3">
+                    <img src="../../../../static/image/up.png" v-if="show3" alt="" @click="show3=!show3">
+
                 </p>
                 <div v-show="show3">
                     <hr class="hr">
@@ -98,7 +104,9 @@
             <div class="card orther" v-if="deviceInfo && deviceInfo.state==1 || deviceInfo.state==3">
                 <p class="title">
                     挂单信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
+                    <img src="../../../../static/image/down.png" v-if="!show4" alt="" @click="show4=!show4">
+                    <img src="../../../../static/image/up.png" v-if="show4" alt="" @click="show4=!show4">
+
                 </p>
                 <div v-show="show4">
                     <hr class="hr">
@@ -121,7 +129,9 @@
             <div class="card orther" v-if="deviceInfo && deviceInfo.state==3">
                 <p class="title">
                     完工信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
+                    <img src="../../../../static/image/down.png" v-if="!show5" alt="" @click="show5=!show5">
+                    <img src="../../../../static/image/up.png" v-if="show5" alt="" @click="show5=!show5">
+
                 </p>
                 <div v-show="show5">
                     <hr class="hr">
@@ -146,7 +156,7 @@
                         <li>
                             <span>相关附件:</span>
                             <p class="img" v-if="dataInfo.completionInfo.repairAttachmentUrl">
-                                <img v-for="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
+                                <img class="imglist" v-for="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -158,7 +168,9 @@
             <div class="card orther" v-if="deviceInfo && deviceInfo.state==3">
                 <p class="title">
                     保养项目作业书
-                    <img src="../../../../static/image/down.png" alt="" @click="show6=!show6">
+                    <img src="../../../../static/image/down.png" v-if="!show6" alt="" @click="show6=!show6">
+                    <img src="../../../../static/image/up.png" v-if="show6" alt="" @click="show6=!show6">
+
                 </p>
                 <div v-show="show6">
                     <hr class="hr">
@@ -444,6 +456,10 @@
                 text-align: center;
             }
         }
+
+    }
+    .imglist{
+        width: 1.4rem;
 
     }
 }

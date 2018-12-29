@@ -38,8 +38,11 @@
                     <img src="../../../../static/image/add.png" alt="">添加配件
                 </p>
                 <group style="font-size: 0.14rem">
-
-                    <x-input title="其他支出" class="moneyinput" :show-clear="false" text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>
+                    <p style="padding: 10px 15px;position: relative;">
+                        <span>其他支出</span>
+                        <input  type="number" v-model="servicePay" style="text-align: right;width: 50%;height: 1.5em;position: absolute;right: 15px;">
+                    </p>
+                    <!--<x-input title="其他支出" class="moneyinput" :show-clear="false" text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>-->
                     <x-input title="维修总支出" disabled type="number" text-align="right" v-model="repairPay" placeholder=""></x-input>
                 </group>
             </div>
@@ -72,7 +75,7 @@
                             <img :src="item" alt="">
                             <img @click="deleteImg(index)" src="../../../../static/image/close.png" alt="" class="close">
                         </p>
-                        <upload @uploadHandle="uploadHandle"></upload>
+                        <upload v-if="urlArr.length<3" @uploadHandle="uploadHandle"></upload>
                     </div>
                 </div>
             </div>

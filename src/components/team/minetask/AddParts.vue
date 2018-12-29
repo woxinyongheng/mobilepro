@@ -12,7 +12,8 @@
             <div v-for="(item,index) in onePart" class="list">
                 <p class="title">
                     {{item.dictLabel}}
-                    <img src="../../../../static/image/down.png" alt="" class="down" @click="requestChild(item.dictCode,index)">
+                    <img src="../../../../static/image/down.png" v-if="!item.show" alt="" class="down" @click="requestChild(item.dictCode,index)">
+                    <img src="../../../../static/image/up.png" v-if="item.show"  alt="" class="down" @click="requestChild(item.dictCode,index)">
                 </p>
                 <div class="item" v-if="item.children && item.show">
                     <p v-for="i in item.children" :class="selectCode==i.dictCode?'itemi':''" @click="selecthandle(i)">{{i.dictLabel}}</p>

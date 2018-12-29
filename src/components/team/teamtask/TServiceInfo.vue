@@ -6,7 +6,9 @@
                 <p class="title">
                     设备信息
                     <span class="stabun">{{dataInfo.equipmentState==0?'正常':(dataInfo.equipmentState==1?'延期':'报废')}}</span>
-                    <img src="../../../../static/image/down.png" alt="" @click="show1=!show1">
+                    <img src="../../../../static/image/down.png" v-if="!show1" alt="" @click="show1=!show1">
+                    <img src="../../../../static/image/up.png" v-if="show1" alt="" @click="show1=!show1">
+
                 </p>
                 <div v-show="show1">
                     <hr class="hr">
@@ -37,7 +39,9 @@
             <div class="card orther">
                 <p class="title">
                     报修信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show2=!show2">
+                    <img src="../../../../static/image/down.png" v-if="!show2" alt="" @click="show2=!show2">
+                    <img src="../../../../static/image/up.png" v-if="show2" alt="" @click="show2=!show2">
+
                 </p>
                 <div v-show="show2">
                     <hr class="hr">
@@ -78,7 +82,9 @@
             <div class="card orther" v-if="$route.params.type!=0">
                 <p class="title">
                     派工信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show3=!show3">
+                    <img src="../../../../static/image/down.png" v-if="!show3" alt="" @click="show3=!show3">
+                    <img src="../../../../static/image/up.png" v-if="show3" alt="" @click="show3=!show3">
+
                 </p>
                 <div v-show="show3">
                     <hr class="hr">
@@ -101,7 +107,9 @@
             <div class="card orther" v-if="($route.params.type==2 || $route.params.type==3) && dataInfo.paymentTime">
                 <p class="title">
                     挂单信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
+                    <img src="../../../../static/image/down.png" v-if="!show4" alt="" @click="show4=!show4">
+                    <img src="../../../../static/image/up.png" v-if="show4" alt="" @click="show4=!show4">
+
                 </p>
                 <div v-show="show4">
                     <hr class="hr">
@@ -124,7 +132,9 @@
             <div class="card orther" v-if="$route.params.type==3">
                 <p class="title">
                     维修信息
-                    <img src="../../../../static/image/down.png" alt="" @click="show5=!show5">
+                    <img src="../../../../static/image/down.png" v-if="!show5" alt="" @click="show5=!show5">
+                    <img src="../../../../static/image/up.png" v-if="show5" alt="" @click="show5=!show5">
+
                 </p>
                 <div v-show="show5">
                     <hr class="hr">

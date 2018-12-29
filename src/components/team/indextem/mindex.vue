@@ -32,7 +32,7 @@
                         formatter: "{b}: {c} ({d}%)"
                     },
                     //环形颜色
-                    color: ['#38C7C4', '#FCB635'],
+                    color: ['#38C7C4', '#FCB635','#FA6872','#4F87FB'],
                     legend: {
                         left: 'center',
                         itemGap: 40
@@ -71,7 +71,7 @@
                                     // \n\n可让文字居于牵引线上方，很关键
                                     //  {b}  代表显示的内容标题
                                     // {c}代表数据
-                                    formatter: '{c}\n{b|{b}}',
+                                    formatter: '{c}\n{b|{d}%}',
                                     borderWidth: 0,
                                     borderRadius: 4,
 
@@ -101,10 +101,10 @@
                         formatter: "{b}: {c} ({d}%)"
                     },
                     //环形颜色
-                    color: ['#38C7C4', '#FCB635'],
+                    color: ['#38C7C4', '#FCB635','#FA6872','#4F87FB'],
                     legend: {
                         left: 'center',
-                        itemGap: 40
+                        itemGap: 5
                     },
                     // graphic 是原生图形元素组件。可以支持的图形元素包括：image, text, circle, sector, ring, polygon, polyline, rect, line, bezierCurve, arc, group,
                     graphic: {
@@ -140,7 +140,7 @@
                                     // \n\n可让文字居于牵引线上方，很关键
                                     //  {b}  代表显示的内容标题
                                     // {c}代表数据
-                                    formatter: '{c}\n{b|{b}}',
+                                    formatter: '{c}\n{b|{d}%}',
                                     borderWidth: 0,
                                     borderRadius: 4,
 

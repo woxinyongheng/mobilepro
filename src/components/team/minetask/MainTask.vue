@@ -34,7 +34,7 @@
               pageSize:10,
               total:0,
               state:'2',
-              overTime:'0',
+              overTime:'',
               listData:[],
               scroll:false,
               type:'2'

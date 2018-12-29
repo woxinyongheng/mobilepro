@@ -95,7 +95,7 @@
             </div>
 
 
-            <div class="card orther" v-if="deviceInfo && deviceInfo.state==1 || deviceInfo.state==3">>
+            <div class="card orther" v-if="deviceInfo && deviceInfo.state==1 || deviceInfo.state==3">
                 <p class="title">
                     挂单信息
                     <img src="../../../../static/image/down.png" alt="" @click="show4=!show4">
@@ -146,7 +146,7 @@
                         <li>
                             <span>相关附件:</span>
                             <p class="img" v-if="dataInfo.completionInfo.repairAttachmentUrl">
-                                <img v-if="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
+                                <img v-for="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
                     </ul>
@@ -181,7 +181,7 @@
             <div class="buttonbox" v-if="deviceInfo && deviceInfo.state==0 && roleType">
                 <!--/* v-if="dataInfo.state==0"*/-->
                 <p @click="ranlingshow=true">认领</p>
-                <p @click="selectPerson">指派</p>
+                <p @click="selectPerson" v-if="zhipaiShow">指派</p>
             </div>
             <div>
                 <confirm v-model="ranlingshow"
@@ -213,6 +213,7 @@
               show5:true,
               show6:true,
               deviceInfo:'',
+              zhipaiShow:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader',
               roleType:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='teamleader' || JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='worker'
 
           }

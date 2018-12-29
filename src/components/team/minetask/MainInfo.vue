@@ -146,7 +146,7 @@
                         <li>
                             <span>相关附件:</span>
                             <p class="img" v-if="dataInfo.completionInfo.repairAttachmentUrl">
-                                <img v-if="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
+                                <img v-for="item in dataInfo.completionInfo.repairAttachmentUrl" :src="item" alt="">
                             </p>
                         </li>
                     </ul>

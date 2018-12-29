@@ -33,7 +33,7 @@
         methods:{
             toGrade(){
                 let vm =this
-                this.$emit('toGrade',vm.item.equipmentId)
+                this.$emit('toGrade',vm.item.assetsCode)
             }
         }
     }

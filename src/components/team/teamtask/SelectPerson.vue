@@ -71,7 +71,7 @@
                     })
                 }else if(vm.$route.params.type=='baoyang'){
                     vm.$http.post('AppmaintainController/claimOrAssignMaintain',{
-                        type:0,
+                        type:1,
                         id:vm.$route.params.ids,
                         implementPersonCode:vm.selectId,
                         implementPersonName: _name

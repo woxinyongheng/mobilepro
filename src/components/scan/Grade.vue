@@ -117,7 +117,7 @@
             requestDeviceInfo(){
                 let vm =this
                 vm.$http.post('equipmentListController/GetEquipmentById',{
-                    id:vm.$route.params.id
+                    assetsCode:vm.$route.params.id
                 }).then(res=>{
                     if(res.code==200){
                         vm.deviceInfo = res.data.list

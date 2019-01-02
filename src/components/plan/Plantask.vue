@@ -48,7 +48,6 @@
             },
             requestList(str){
                 let vm =this
-                debugger
                 vm.$http.post('/planTask/getPlanTaskList',{
                     currentPage:vm.currentPage,
                     pageSize:vm.pageSize,
@@ -64,7 +63,7 @@
                     columnName:'',
                     sort:'',
                     taskState:vm.taskState,
-                    company:JSON.parse(localStorage.getItem('ROLECODE')).roleCode=='wymanager'?(JSON.parse(localStorage.getItem('staffInfo')).companyCode):''
+                    company:JSON.parse(localStorage.getItem('staffInfo')).companyCode?(JSON.parse(localStorage.getItem('staffInfo')).companyCode):''
                  }).then(res=>{
                     if(res.code==200){
                         if(str){

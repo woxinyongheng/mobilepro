@@ -129,30 +129,30 @@
         mounted(){
           let vm =this
             vm.deviceInfo = JSON.parse(sessionStorage.getItem(vm.$route.params.id))
-            document.querySelector('.moneyinput input').oninput = function(){
-                this.servicePay = document.querySelector('.moneyinput input').value*1
-                if(this.servicePay){
-                    if(this.partArr && this.partArr.length){
-                        let num =0
-                        this.partArr.forEach(function (item) {
-                            num += item.money*1
-                        })
-                        this.repairPay = num + this.servicePay*1
-                    }else{
-                        this.repairPay = this.servicePay*1
-                    }
-                }else{
-                    if(this.partArr &&  this.partArr.length){
-                        let num =0
-                        this.partArr.forEach(function (item) {
-                            num += item.money*1
-                        })
-                        this.repairPay = num
-                    }else{
-                        this.repairPay = this.servicePay*1
-                    }
-                }
-            }
+            // document.querySelector('.moneyinput input').oninput = function(){
+            //     this.servicePay = document.querySelector('.moneyinput input').value*1
+            //     if(this.servicePay){
+            //         if(this.partArr && this.partArr.length){
+            //             let num =0
+            //             this.partArr.forEach(function (item) {
+            //                 num += item.money*1
+            //             })
+            //             this.repairPay = num + this.servicePay*1
+            //         }else{
+            //             this.repairPay = this.servicePay*1
+            //         }
+            //     }else{
+            //         if(this.partArr &&  this.partArr.length){
+            //             let num =0
+            //             this.partArr.forEach(function (item) {
+            //                 num += item.money*1
+            //             })
+            //             this.repairPay = num
+            //         }else{
+            //             this.repairPay = this.servicePay*1
+            //         }
+            //     }
+            // }
 
         },
         methods:{

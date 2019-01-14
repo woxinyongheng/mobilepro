@@ -34,7 +34,7 @@
             <div class="banner content">
                 <div class="title">保养信息</div>
                 <group style="font-size: 0.14rem">
-                    <x-textarea title="保养说明" v-model="repairExplain" placeholder="请输入保养说明" :show-counter="false" :rows="3"></x-textarea>
+                    <x-textarea title="保养说明" :max="120" @on-blur="scrollBottom" v-model="repairExplain" placeholder="请输入保养说明" :show-counter="false" :rows="3"></x-textarea>
                 </group>
                 <p class="voice" v-if="!localId"  @touchstart.stop.prevent="recordStart" @touchend.stop.prevent="recordEnd">
                     <img src="../../../../static/image/voice.png" alt="">
@@ -56,7 +56,7 @@
                     <p>相关附件</p>
                     <div class="list">
                         <p class="imglist" v-for="(item,index) in urlArr">
-                            <img :src="item" alt="">
+                            <img :src="item" alt="" @click="pictureUrl=item">
                             <img @click="deleteImg(index)" src="../../../../static/image/close.png" alt="" class="close">
                         </p>
                         <upload @uploadHandle="uploadHandle"></upload>
@@ -82,7 +82,7 @@
                         </span>
                     </p>
                     <group style="font-size: 0.14rem">
-                        <x-textarea  v-model="item.remarks" placeholder="请输入备注信息" :show-counter="false" :rows="3"></x-textarea>
+                        <x-textarea  @on-blur="scrollBottom" v-model="item.remarks" :max="120"  placeholder="请输入备注信息,最多120个字" :show-counter="false" :rows="3"></x-textarea>
                     </group>
                 </div>
             </div>
@@ -105,7 +105,10 @@
             </div>
 
         </div>
-
+        <div class="footerimg" v-if="pictureUrl">
+            <img src="/static/image/close.png" alt="" class="i" @click="pictureUrl=''">
+            <img :src="pictureUrl" alt="">
+        </div>
     </div>
 </template>
 
@@ -128,7 +131,8 @@
                 urlArr:[],
                 workList:[],
                 ranlingshow:false,
-                serverId:''
+                serverId:'',
+                pictureUrl:''
             }
         },
         mounted(){
@@ -272,6 +276,9 @@
                 wx.pauseVoice()
                 vm.localId=''
             },
+            scrollBottom(){
+                window.scroll(0, document.body.scrollHeight);
+            }
 
         },
 

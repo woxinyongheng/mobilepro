@@ -4,7 +4,7 @@
         <div class="content">
             <p class="title">挂单说明</p>
             <group>
-                <x-textarea :max="100" placeholder="请输入您的挂单说明" v-model="otherExplain"></x-textarea>
+                <x-textarea :max="120" placeholder="请输入您的挂单说明,最多120字" v-model="otherExplain"></x-textarea>
             </group>
             <hr class="hr">
             <p class="title">挂单原因</p>

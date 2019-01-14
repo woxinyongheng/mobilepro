@@ -37,20 +37,21 @@
                 <p class="addpng" @click="addParts">
                     <img src="../../../../static/image/add.png" alt="">添加配件
                 </p>
-                <group style="font-size: 0.14rem">
+                <div style="font-size: 0.14rem">
                     <p style="padding: 10px 15px;position: relative;">
                         <span>其他支出</span>
-                        <input  type="number" v-model="servicePay" style="text-align: right;width: 50%;height: 1.5em;position: absolute;right: 15px;">
+                        <input  type="number" @blur="scrollBottom" v-model="servicePay" style="text-align: right;width: 50%;height: 1.5em;position: absolute;right: 15px;outline: none;
+    -webkit-appearance: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);border: none">
                     </p>
                     <!--<x-input title="其他支出" class="moneyinput" :show-clear="false" text-align="right" placeholder="" v-model="servicePay" type="number"></x-input>-->
                     <x-input title="维修总支出" disabled type="number" text-align="right" v-model="repairPay" placeholder=""></x-input>
-                </group>
+                </div>
             </div>
 
             <div class="banner content">
                 <div class="title">维修信息</div>
                 <group style="font-size: 0.14rem">
-                    <x-textarea title="维修说明" v-model="repairExplain" placeholder="请输入维修说明" :show-counter="false" :rows="3"></x-textarea>
+                    <x-textarea title="维修说明" :max="120"  @on-blur="scrollBottom" v-model="repairExplain" placeholder="请输入维修说明" :show-counter="false" :rows="3"></x-textarea>
                 </group>
                 <p class="voice" v-if="!localId"  @touchstart.stop.prevent="recordStart" @touchend.stop.prevent="recordEnd">
                     <img src="../../../../static/image/voice.png" alt="">
@@ -72,7 +73,7 @@
                     <p>相关附件</p>
                     <div class="list">
                         <p class="imglist" v-for="(item,index) in urlArr">
-                            <img :src="item" alt="">
+                            <img :src="item" alt="" @click="pictureUrl=item">
                             <img @click="deleteImg(index)" src="../../../../static/image/close.png" alt="" class="close">
                         </p>
                         <upload v-if="urlArr.length<3" @uploadHandle="uploadHandle"></upload>
@@ -95,7 +96,10 @@
                 </confirm>
             </div>
         </div>
-
+        <div class="footerimg" v-if="pictureUrl">
+            <img src="/static/image/close.png" alt="" class="i" @click="pictureUrl=''">
+            <img :src="pictureUrl" alt="">
+        </div>
 
     </div>
 </template>
@@ -107,6 +111,7 @@
         name: "Repair",
         data:function(){
             return{
+                pictureUrl:'',
                 deviceInfo:'',
                 ranlingshow:false,
                 username:JSON.parse(sessionStorage.getItem('weixiudata'))?JSON.parse(sessionStorage.getItem('weixiudata')).username:JSON.parse(localStorage.getItem('loginInfo')).name,
@@ -314,6 +319,9 @@
                 wx.pauseVoice()
                 vm.localId=''
             },
+            scrollBottom(){
+                window.scroll(0, document.body.scrollHeight);
+            }
         },
         components:{
             XHeader,Datetime,Group,Selector,PopupPicker,Cell,XTextarea,XInput,Icon,upload,Confirm

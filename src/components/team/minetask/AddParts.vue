@@ -25,7 +25,7 @@
                 <group>
                     <x-input title="配件名称"  text-align="right" v-model="selectName" disabled></x-input>
                     <x-number title="配件数量" align="right" v-model="numberValue" button-style="round" :min="1" :max="10000"></x-number>
-                    <x-input title="配件金额" class="moneyinput"  text-align="right" v-model="moneyValue" placeholder="请输入金额" type="number"></x-input>
+                    <x-input title="配件金额" @on-blur="scrollBottom" class="moneyinput"  text-align="right" v-model="moneyValue" placeholder="请输入金额" type="number"></x-input>
                 </group>
 
                 <div class="buttonbox">
@@ -49,7 +49,7 @@
               selectCode:'',
               selectName:'',
               numberValue:1,
-              moneyValue:0,
+              moneyValue:'',
               showMask:false
           }
         },
@@ -123,6 +123,9 @@
                         vm.onePart = res.data
                     }
                 })
+            },
+            scrollBottom(){
+                window.scroll(0, document.body.scrollHeight);
             }
         },
         components:{

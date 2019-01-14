@@ -33,7 +33,7 @@
                     <!--<group title="报修人电话">-->
                     <x-input title="报修人电话" type="number" text-align="right" v-model="phone" placeholder=""></x-input>
                     <!--</group>-->
-                    <x-textarea title="详细信息" v-model="repairExplain"
+                    <x-textarea @on-blur="scrollBottom" title="详细信息" :max="120" v-model="repairExplain"
                                 placeholder="请输入您要报修的故障内容描述，字数在120字以内，或直接语音发布，限时60秒" :show-counter="false"
                                 :rows="3"></x-textarea>
                 </group>
@@ -58,15 +58,15 @@
                         <!--<img @click="deleteImg(index)" src="../../../static/image/close.png" alt="" class="close">-->
                         <!--</p>-->
                         <p class="imglist" v-if="item0">
-                            <img :src="item0" alt="">
+                            <img :src="item0" alt="" @click="pictureUrl=item0">
                             <img @click="deleteImg(0)" src="../../../static/image/close.png" alt="" class="close">
                         </p>
                         <p class="imglist" v-if="item1">
-                            <img :src="item1" alt="">
+                            <img :src="item1" alt=""  @click="pictureUrl=item1">
                             <img @click="deleteImg(1)" src="../../../static/image/close.png" alt="" class="close">
                         </p>
                         <p class="imglist" v-if="item2">
-                            <img :src="item2" alt="">
+                            <img :src="item2" alt=""  @click="pictureUrl=item2">
                             <img @click="deleteImg(2)" src="../../../static/image/close.png" alt="" class="close">
                         </p>
                         <upload @uploadHandle="uploadHandle" v-if="urlArr.length<3"></upload>
@@ -79,7 +79,10 @@
             </div>
 
         </div>
-
+        <div class="footerimg" v-if="pictureUrl">
+            <img src="/static/image/close.png" alt="" class="i" @click="pictureUrl=''">
+            <img :src="pictureUrl" alt="">
+        </div>
 
     </div>
 </template>
@@ -93,6 +96,7 @@
         name: "Grade",
         data: function () {
             return {
+                pictureUrl:'',
                 value1: dateFormat(new Date(), 'YYYY-MM-DD'),
                 list1: [['小米', 'iPhone', '华为', '情怀', '三星', '其他', '不告诉你']],
                 list: [{key: 'gd', name: 'feifei'}, {key: 'gx', name: 'longlong'}],
@@ -241,6 +245,9 @@
 
                     }
                 })
+            },
+            scrollBottom(){
+                window.scroll(0, document.body.scrollHeight);
             }
         },
         components: {

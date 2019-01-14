@@ -69,7 +69,7 @@
                         <li>
                             <span>相关附件:</span>
                             <p class="img">
-                                <img v-for="item in dataInfo.repairAttachmentUrl" :src="item" alt="">
+                                <img v-for="item in dataInfo.repairAttachmentUrl" :src="item" alt="" @click="pictureUrl=item">
                             </p>
                         </li>
 
@@ -179,7 +179,7 @@
                         <li>
                             <span>相关附件:</span>
                             <p class="img">
-                                <img v-for="item in dataInfo.finishAttachmentUrl" :src="item" alt="">
+                                <img v-for="item in dataInfo.finishAttachmentUrl" :src="item" alt="" @click="pictureUrl=item">
                             </p>
                         </li>
                     </ul>
@@ -202,6 +202,10 @@
             </div>
 
         </div>
+        <div class="footerimg" v-if="pictureUrl">
+            <img src="/static/image/close.png" alt="" class="i" @click="pictureUrl=''">
+            <img :src="pictureUrl" alt="">
+        </div>
     </div>
 </template>
 
@@ -212,6 +216,7 @@
         name: "TMainInfo",
         data:function(){
             return{
+                pictureUrl:'',
                 ranlingshow:false,
                 dataInfo:'',
                 deviceInfo:'',
